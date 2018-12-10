@@ -3458,7 +3458,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         return error("%s : ActivateBestChain failed", __func__);
 
     if (!fLiteMode) {
-        if (masternodeSync.RequestedMasternodeAssets > FRANCNODE_SYNC_LIST) {
+        if (masternodeSync.RequestedMasternodeAssets > FRENCHNODE_SYNC_LIST) {
             masternodePayments.ProcessBlock(GetHeight() + 10);
             budget.NewBlock();
             communityVote.NewBlock();
@@ -4160,7 +4160,7 @@ bool static AlreadyHave(const CInv& inv)
         return mapTxLockVote.count(inv.hash);
     case MSG_SPORK:
         return mapSporks.count(inv.hash);
-    case MSG_FRANCNODE_WINNER:
+    case MSG_FRENCHNODE_WINNER:
         if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
             masternodeSync.AddedMasternodeWinner(inv.hash);
             return true;
@@ -4190,13 +4190,13 @@ bool static AlreadyHave(const CInv& inv)
             return true;
         }
         return false;
-    case MSG_FRANCNODE_ANNOUNCE:
+    case MSG_FRENCHNODE_ANNOUNCE:
         if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
             masternodeSync.AddedMasternodeList(inv.hash);
             return true;
         }
         return false;
-    case MSG_FRANCNODE_PING:
+    case MSG_FRENCHNODE_PING:
         return mnodeman.mapSeenMasternodePing.count(inv.hash);
     case MSG_COMMUNITY_PROPOSAL:
         if (communityVote.mapSeenMasternodeCommunityProposals.count(inv.hash)) {
@@ -4334,7 +4334,7 @@ void static ProcessGetData(CNode* pfrom)
                         pushed = true;
                     }
                 }
-                if (!pushed && inv.type == MSG_FRANCNODE_WINNER) {
+                if (!pushed && inv.type == MSG_FRENCHNODE_WINNER) {
                     if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
@@ -4383,7 +4383,7 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FRANCNODE_ANNOUNCE) {
+                if (!pushed && inv.type == MSG_FRENCHNODE_ANNOUNCE) {
                     if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
@@ -4393,7 +4393,7 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FRANCNODE_PING) {
+                if (!pushed && inv.type == MSG_FRENCHNODE_PING) {
                     if (mnodeman.mapSeenMasternodePing.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);

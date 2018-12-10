@@ -4,8 +4,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRANCNODE_BUDGET_H
-#define FRANCNODE_BUDGET_H
+#ifndef FRENCHNODE_BUDGET_H
+#define FRENCHNODE_BUDGET_H
 
 #include "base58.h"
 #include "init.h"

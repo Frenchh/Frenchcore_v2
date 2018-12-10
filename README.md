@@ -9,16 +9,16 @@ Franc (FRC) est une crypto-monnaie durable inspirée de la vision de Satoshi Nak
   La technologie utilisée pour sécuriser le réseau et fournir les fonctionnalités ci-dessus, chaque Masternode est sécurisé
   with a collateral of 2,500 FRC.
 
-More information at [franc-blockchain.com](http://www.franc-blockchain.com)
+More information at [french-blockchain.com](http://www.french-blockchain.com)
 
 
 ### Coin Specs
-    
-|-----------------------------|----------------|
-| Temps par bloc              | 120 Seconds    |
-| Max Coin Supply (PoW Phase) | 500,000 FRC    |
-| Max Coin Supply (PoS Phase) | 20,500,000 FRC |
-| Premine                     | 500,000 FRC    |
+
+
+- Temps par bloc              | 120 Seconds    
+- Max Coin Supply (PoW Phase) | 500,000 FRC    
+- Max Coin Supply (PoS Phase) | 20,500,000 FRC 
+- Premine                     | 500,000 FRC    
 
 ### Reward Distribution
 

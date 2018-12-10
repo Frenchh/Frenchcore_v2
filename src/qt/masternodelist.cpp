@@ -202,9 +202,9 @@ void MasternodeList::updateMyNodeList(bool fForce)
 {
     static int64_t nTimeMyListUpdated = 0;
 
-    // automatically update my masternode list only once in MY_FRANCNODELIST_UPDATE_SECONDS seconds,
+    // automatically update my masternode list only once in MY_FRENCHNODELIST_UPDATE_SECONDS seconds,
     // this update still can be triggered manually at any time via button click
-    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_FRANCNODELIST_UPDATE_SECONDS - GetTime();
+    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_FRENCHNODELIST_UPDATE_SECONDS - GetTime();
     ui->secondsLabel->setText(QString::number(nSecondsTillUpdate));
 
     if (nSecondsTillUpdate > 0 && !fForce) return;

@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRANCNODE_VOTE_H
-#define FRANCNODE_VOTE_H
+#ifndef FRENCHNODE_VOTE_H
+#define FRENCHNODE_VOTE_H
 
 #include "base58.h"
 #include "init.h"
@@ -318,4 +318,4 @@ public:
     }
 };
 
-#endif // FRANCNODE_VOTE_H
+#endif // FRENCHNODE_VOTE_H

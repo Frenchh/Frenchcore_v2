@@ -242,7 +242,7 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
 
             if (transactionStatus == TrxValidationStatus::InValid) {
                 LogPrint("masternode","Invalid budget payment detected %s\n", txNew.ToString().c_str());
-                if (IsSporkActive(SPORK_9_FRANCNODE_BUDGET_ENFORCEMENT))
+                if (IsSporkActive(SPORK_9_FRENCHNODE_BUDGET_ENFORCEMENT))
                     return false;
 
                 LogPrint("masternode","Budget enforcement is disabled, accepting block\n");
@@ -260,7 +260,7 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
         return true;
     LogPrint("masternode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
 
-    if (IsSporkActive(SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT))
+    if (IsSporkActive(SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT))
         return false;
     LogPrint("masternode","Masternode payment enforcement is disabled, accepting block\n");
 
@@ -343,7 +343,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
 int CMasternodePayments::GetMinMasternodePaymentsProto()
 {
-    if (IsSporkActive(SPORK_10_FRANCNODE_PAY_UPDATED_NODES))
+    if (IsSporkActive(SPORK_10_FRENCHNODE_PAY_UPDATED_NODES))
         return ActiveProtocol();                          // Allow only updated peers
     else
         return MIN_PEER_PROTO_VERSION; // Also allow old peers as long as they are allowed to run
@@ -532,7 +532,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    if (IsSporkActive(SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT)) {
+    if (IsSporkActive(SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT)) {
         // Get a stable number of masternodes by ignoring newly activated (< 8000 sec old) masternodes
         nMasternode_Drift_Count = mnodeman.stable_size() + Params().MasternodeCountDrift();
     }
@@ -762,7 +762,7 @@ bool CMasternodePayments::ProcessBlock(int nBlockHeight)
 
 void CMasternodePaymentWinner::Relay()
 {
-    CInv inv(MSG_FRANCNODE_WINNER, GetHash());
+    CInv inv(MSG_FRENCHNODE_WINNER, GetHash());
     RelayInv(inv);
 }
 
@@ -805,12 +805,12 @@ void CMasternodePayments::Sync(CNode* node, int nCountNeeded)
     while (it != mapMasternodePayeeVotes.end()) {
         CMasternodePaymentWinner winner = (*it).second;
         if (winner.nBlockHeight >= nHeight - nCountNeeded && winner.nBlockHeight <= nHeight + 20) {
-            node->PushInventory(CInv(MSG_FRANCNODE_WINNER, winner.GetHash()));
+            node->PushInventory(CInv(MSG_FRENCHNODE_WINNER, winner.GetHash()));
             nInvCount++;
         }
         ++it;
     }
-    node->PushMessage("ssc", FRANCNODE_SYNC_MNW, nInvCount);
+    node->PushMessage("ssc", FRENCHNODE_SYNC_MNW, nInvCount);
 }
 
 std::string CMasternodePayments::ToString() const

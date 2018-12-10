@@ -4,8 +4,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRANCNODEHELPERS_H
-#define FRANCNODEHELPERS_H
+#ifndef FRENCHNODEHELPERS_H
+#define FRENCHNODEHELPERS_H
 
 #include "main.h"
 #include "sync.h"

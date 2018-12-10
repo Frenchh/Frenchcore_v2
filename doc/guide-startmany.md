@@ -137,7 +137,7 @@ I usually confirm that remote is on the correct block by issuing:
 
 ```francd getinfo```
 
-And compare with the official explorer at http://explorer.franc-blockchain.com
+And compare with the official explorer at http://explorer.french-blockchain.com
 
 ### Local
 

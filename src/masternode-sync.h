@@ -3,23 +3,23 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRANCNODE_SYNC_H
-#define FRANCNODE_SYNC_H
+#ifndef FRENCHNODE_SYNC_H
+#define FRENCHNODE_SYNC_H
 
-#define FRANCNODE_SYNC_INITIAL 0
-#define FRANCNODE_SYNC_SPORKS 1
-#define FRANCNODE_SYNC_LIST 2
-#define FRANCNODE_SYNC_MNW 3
-#define FRANCNODE_SYNC_BUDGET 4
-#define FRANCNODE_SYNC_BUDGET_PROP 10
-#define FRANCNODE_SYNC_BUDGET_FIN 11
-#define FRANCNODE_SYNC_COMMUNITYVOTE 5
-#define FRANCNODE_SYNC_COMMUNITYVOTE_PROP 20
-#define FRANCNODE_SYNC_FAILED 998
-#define FRANCNODE_SYNC_FINISHED 999
+#define FRENCHNODE_SYNC_INITIAL 0
+#define FRENCHNODE_SYNC_SPORKS 1
+#define FRENCHNODE_SYNC_LIST 2
+#define FRENCHNODE_SYNC_MNW 3
+#define FRENCHNODE_SYNC_BUDGET 4
+#define FRENCHNODE_SYNC_BUDGET_PROP 10
+#define FRENCHNODE_SYNC_BUDGET_FIN 11
+#define FRENCHNODE_SYNC_COMMUNITYVOTE 5
+#define FRENCHNODE_SYNC_COMMUNITYVOTE_PROP 20
+#define FRENCHNODE_SYNC_FAILED 998
+#define FRENCHNODE_SYNC_FINISHED 999
 
-#define FRANCNODE_SYNC_TIMEOUT 5
-#define FRANCNODE_SYNC_THRESHOLD 2
+#define FRENCHNODE_SYNC_TIMEOUT 5
+#define FRENCHNODE_SYNC_THRESHOLD 2
 
 class CMasternodeSync;
 extern CMasternodeSync masternodeSync;
@@ -80,7 +80,7 @@ public:
     void Process();
     bool IsSynced();
     bool IsBlockchainSynced();
-    bool IsMasternodeListSynced() { return RequestedMasternodeAssets > FRANCNODE_SYNC_LIST; }
+    bool IsMasternodeListSynced() { return RequestedMasternodeAssets > FRENCHNODE_SYNC_LIST; }
     void ClearFulfilledRequest();
 };
 

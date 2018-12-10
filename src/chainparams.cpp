@@ -155,9 +155,9 @@ public:
         // DNS Seeding
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("seed1.franc-blockchain.com", "seed1.franc-blockchain.com"));
-        //vSeeds.push_back(CDNSSeedData("seed2.franc-blockchain.com", "seed2.franc-blockchain.com"));
-        //vSeeds.push_back(CDNSSeedData("seed3.franc-blockchain.com", "seed3.franc-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed1.french-blockchain.com", "seed1.french-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed2.french-blockchain.com", "seed2.french-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed3.french-blockchain.com", "seed3.french-blockchain.com"));
 
         // Franc addresses start with 'F'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 36);
