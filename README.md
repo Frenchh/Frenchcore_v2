@@ -13,6 +13,7 @@ More information at [franc-blockchain.com](http://www.franc-blockchain.com)
 
 
 ### Coin Specs
+    
 |-----------------------------|----------------|
 | Temps par bloc              | 120 Seconds    |
 | Max Coin Supply (PoW Phase) | 500,000 FRC    |
