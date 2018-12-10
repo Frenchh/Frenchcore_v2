@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/french-config.h"
+#include "config/franc-config.h"
 #endif
 
 #include "util.h"
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     // Don't remove this, it's needed to access
     // QCoreApplication:: in the tests
     QCoreApplication app(argc, argv);
-    app.setApplicationName("French-Qt-test");
+    app.setApplicationName("Franc-Qt-test");
 
     SSL_library_init();
 

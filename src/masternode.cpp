@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -71,14 +71,14 @@ CMasternode::CMasternode()
     pubKeyCollateralAddress = CPubKey();
     pubKeyMasternode = CPubKey();
     sig = std::vector<unsigned char>();
-    activeState = FRENCHNODE_ENABLED;
+    activeState = FRANCNODE_ENABLED;
     sigTime = GetAdjustedTime();
     lastPing = CMasternodePing();
     cacheInputAge = 0;
     cacheInputAgeBlock = 0;
     unitTest = false;
     allowFreeTx = true;
-    nActiveState = FRENCHNODE_ENABLED,
+    nActiveState = FRANCNODE_ENABLED,
     protocolVersion = PROTOCOL_VERSION;
     nLastDsq = 0;
     nScanningErrorCount = 0;
@@ -103,7 +103,7 @@ CMasternode::CMasternode(const CMasternode& other)
     cacheInputAgeBlock = other.cacheInputAgeBlock;
     unitTest = other.unitTest;
     allowFreeTx = other.allowFreeTx;
-    nActiveState = FRENCHNODE_ENABLED,
+    nActiveState = FRANCNODE_ENABLED,
     protocolVersion = other.protocolVersion;
     nLastDsq = other.nLastDsq;
     nScanningErrorCount = other.nScanningErrorCount;
@@ -121,14 +121,14 @@ CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
     pubKeyCollateralAddress = mnb.pubKeyCollateralAddress;
     pubKeyMasternode = mnb.pubKeyMasternode;
     sig = mnb.sig;
-    activeState = FRENCHNODE_ENABLED;
+    activeState = FRANCNODE_ENABLED;
     sigTime = mnb.sigTime;
     lastPing = mnb.lastPing;
     cacheInputAge = 0;
     cacheInputAgeBlock = 0;
     unitTest = false;
     allowFreeTx = true;
-    nActiveState = FRENCHNODE_ENABLED,
+    nActiveState = FRANCNODE_ENABLED,
     protocolVersion = mnb.protocolVersion;
     nLastDsq = mnb.nLastDsq;
     nScanningErrorCount = 0;
@@ -196,33 +196,33 @@ void CMasternode::Check(bool forceCheck)
 {
     if (ShutdownRequested()) return;
 
-    if (!forceCheck && (GetTime() - lastTimeChecked < FRENCHNODE_CHECK_SECONDS)) return;
+    if (!forceCheck && (GetTime() - lastTimeChecked < FRANCNODE_CHECK_SECONDS)) return;
     lastTimeChecked = GetTime();
 
 
     //once spent, stop doing the checks
-    if (activeState == FRENCHNODE_VIN_SPENT) return;
+    if (activeState == FRANCNODE_VIN_SPENT) return;
 
 
-    if (!IsPingedWithin(FRENCHNODE_REMOVAL_SECONDS)) {
-        activeState = FRENCHNODE_REMOVE;
+    if (!IsPingedWithin(FRANCNODE_REMOVAL_SECONDS)) {
+        activeState = FRANCNODE_REMOVE;
         return;
     }
 
-    if (!IsPingedWithin(FRENCHNODE_EXPIRATION_SECONDS)) {
-        activeState = FRENCHNODE_EXPIRED;
+    if (!IsPingedWithin(FRANCNODE_EXPIRATION_SECONDS)) {
+        activeState = FRANCNODE_EXPIRED;
         return;
     }
 
-    if (lastPing.sigTime - sigTime < FRENCHNODE_MIN_MNP_SECONDS){
-    	activeState = FRENCHNODE_PRE_ENABLED;
+    if (lastPing.sigTime - sigTime < FRANCNODE_MIN_MNP_SECONDS){
+    	activeState = FRANCNODE_PRE_ENABLED;
     	return;
     }
 
     if (!unitTest) {
         CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
-        CTxOut vout = CTxOut((FRENCHNODE_COLLATERAL-0.01) * COIN, masternodeSigner.collateralPubKey);
+        CTxOut vout = CTxOut((FRANCNODE_COLLATERAL-0.01) * COIN, masternodeSigner.collateralPubKey);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
 
@@ -231,13 +231,13 @@ void CMasternode::Check(bool forceCheck)
             if (!lockMain) return;
 
             if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
-                activeState = FRENCHNODE_VIN_SPENT;
+                activeState = FRANCNODE_VIN_SPENT;
                 return;
             }
         }
     }
 
-    activeState = FRENCHNODE_ENABLED; // OK
+    activeState = FRANCNODE_ENABLED; // OK
 }
 
 int64_t CMasternode::SecondsSincePayment()
@@ -309,19 +309,19 @@ int64_t CMasternode::GetLastPaid()
 std::string CMasternode::GetStatus()
 {
     switch (nActiveState) {
-    case CMasternode::FRENCHNODE_PRE_ENABLED:
+    case CMasternode::FRANCNODE_PRE_ENABLED:
         return "PRE_ENABLED";
-    case CMasternode::FRENCHNODE_ENABLED:
+    case CMasternode::FRANCNODE_ENABLED:
         return "ENABLED";
-    case CMasternode::FRENCHNODE_EXPIRED:
+    case CMasternode::FRANCNODE_EXPIRED:
         return "EXPIRED";
-    case CMasternode::FRENCHNODE_OUTPOINT_SPENT:
+    case CMasternode::FRANCNODE_OUTPOINT_SPENT:
         return "OUTPOINT_SPENT";
-    case CMasternode::FRENCHNODE_REMOVE:
+    case CMasternode::FRANCNODE_REMOVE:
         return "REMOVE";
-    case CMasternode::FRENCHNODE_WATCHDOG_EXPIRED:
+    case CMasternode::FRANCNODE_WATCHDOG_EXPIRED:
         return "WATCHDOG_EXPIRED";
-    case CMasternode::FRENCHNODE_POSE_BAN:
+    case CMasternode::FRANCNODE_POSE_BAN:
         return "POSE_BAN";
     default:
         return "UNKNOWN";
@@ -343,7 +343,7 @@ CMasternodeBroadcast::CMasternodeBroadcast()
     pubKeyCollateralAddress = CPubKey();
     pubKeyMasternode1 = CPubKey();
     sig = std::vector<unsigned char>();
-    activeState = FRENCHNODE_ENABLED;
+    activeState = FRANCNODE_ENABLED;
     sigTime = GetAdjustedTime();
     lastPing = CMasternodePing();
     cacheInputAge = 0;
@@ -363,7 +363,7 @@ CMasternodeBroadcast::CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubK
     pubKeyCollateralAddress = pubKeyCollateralAddressNew;
     pubKeyMasternode = pubKeyMasternodeNew;
     sig = std::vector<unsigned char>();
-    activeState = FRENCHNODE_ENABLED;
+    activeState = FRANCNODE_ENABLED;
     sigTime = GetAdjustedTime();
     lastPing = CMasternodePing();
     cacheInputAge = 0;
@@ -553,7 +553,7 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
 
     // mn.pubkey = pubkey, IsVinAssociatedWithPubkey is validated once below,
     //   after that they just need to match
-    if (pmn->pubKeyCollateralAddress == pubKeyCollateralAddress && !pmn->IsBroadcastedWithin(FRENCHNODE_MIN_MNB_SECONDS)) {
+    if (pmn->pubKeyCollateralAddress == pubKeyCollateralAddress && !pmn->IsBroadcastedWithin(FRANCNODE_MIN_MNB_SECONDS)) {
         //take the newest entry
         LogPrint("masternode","mnb - Got updated entry for %s\n", vin.prevout.hash.ToString());
         if (pmn->UpdateFromNewBroadcast((*this))) {
@@ -589,7 +589,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
     CValidationState state;
     CMutableTransaction tx = CMutableTransaction();
-    CTxOut vout = CTxOut((FRENCHNODE_COLLATERAL-0.01) * COIN, masternodeSigner.collateralPubKey);
+    CTxOut vout = CTxOut((FRANCNODE_COLLATERAL-0.01) * COIN, masternodeSigner.collateralPubKey);
     tx.vin.push_back(vin);
     tx.vout.push_back(vout);
 
@@ -611,8 +611,8 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
     LogPrint("masternode", "mnb - Accepted Masternode entry\n");
 
-    if (GetInputAge(vin) < FRENCHNODE_MIN_CONFIRMATIONS) {
-        LogPrint("masternode","mnb - Input must have at least %d confirmations\n", FRENCHNODE_MIN_CONFIRMATIONS);
+    if (GetInputAge(vin) < FRANCNODE_MIN_CONFIRMATIONS) {
+        LogPrint("masternode","mnb - Input must have at least %d confirmations\n", FRANCNODE_MIN_CONFIRMATIONS);
         // maybe we miss few blocks, let this mnb to be checked again later
         mnodeman.mapSeenMasternodeBroadcast.erase(GetHash());
         masternodeSync.mapSeenSyncMNB.erase(GetHash());
@@ -620,17 +620,17 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     }
 
     // verify that sig time is legit in past
-    // should be at least not earlier than block when FRC collateral tx got FRENCHNODE_MIN_CONFIRMATIONS
+    // should be at least not earlier than block when FRC collateral tx got FRANCNODE_MIN_CONFIRMATIONS
     uint256 hashBlock = 0;
     CTransaction tx2;
     GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
     BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
     if (mi != mapBlockIndex.end() && (*mi).second) {
         CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 1000 PIVX tx -> 1 confirmation
-        CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + FRENCHNODE_MIN_CONFIRMATIONS - 1]; // block where tx got FRENCHNODE_MIN_CONFIRMATIONS
+        CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + FRANCNODE_MIN_CONFIRMATIONS - 1]; // block where tx got FRANCNODE_MIN_CONFIRMATIONS
         if (pConfIndex->GetBlockTime() > sigTime) {
             LogPrint("masternode","mnb - Bad sigTime %d for Masternode %s (%i conf block is at %d)\n",
-                sigTime, vin.prevout.hash.ToString(), FRENCHNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
+                sigTime, vin.prevout.hash.ToString(), FRANCNODE_MIN_CONFIRMATIONS, pConfIndex->GetBlockTime());
             return false;
         }
     }
@@ -654,7 +654,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
 void CMasternodeBroadcast::Relay()
 {
-    CInv inv(MSG_FRENCHNODE_ANNOUNCE, GetHash());
+    CInv inv(MSG_FRANCNODE_ANNOUNCE, GetHash());
     RelayInv(inv);
 }
 
@@ -770,8 +770,8 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fChec
 
         // LogPrint("masternode","mnping - Found corresponding mn for vin: %s\n", vin.ToString());
         // update only if there is no known ping for this masternode or
-        // last ping was more then FRENCHNODE_MIN_MNP_SECONDS-60 ago comparing to this one
-        if (!pmn->IsPingedWithin(FRENCHNODE_MIN_MNP_SECONDS - 60, sigTime)) {
+        // last ping was more then FRANCNODE_MIN_MNP_SECONDS-60 ago comparing to this one
+        if (!pmn->IsPingedWithin(FRANCNODE_MIN_MNP_SECONDS - 60, sigTime)) {
         	if (!VerifySignature(pmn->pubKeyMasternode, nDos))
                 return false;
 
@@ -820,6 +820,6 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fChec
 
 void CMasternodePing::Relay()
 {
-    CInv inv(MSG_FRENCHNODE_PING, GetHash());
+    CInv inv(MSG_FRANCNODE_PING, GetHash());
     RelayInv(inv);
 }

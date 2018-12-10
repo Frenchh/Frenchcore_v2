@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRENCHNODEMAN_H
-#define FRENCHNODEMAN_H
+#ifndef FRANCNODEMAN_H
+#define FRANCNODEMAN_H
 
 #include "base58.h"
 #include "key.h"
@@ -14,8 +14,8 @@
 #include "sync.h"
 #include "util.h"
 
-#define FRENCHNODES_DUMP_SECONDS (15 * 60)
-#define FRENCHNODES_DSEG_SECONDS (3 * 60 * 60)
+#define FRANCNODES_DUMP_SECONDS (15 * 60)
+#define FRANCNODES_DSEG_SECONDS (3 * 60 * 60)
 
 using namespace std;
 

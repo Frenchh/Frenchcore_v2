@@ -1,11 +1,11 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRENCHNODEHELPERS_H
-#define FRENCHNODEHELPERS_H
+#ifndef FRANCNODEHELPERS_H
+#define FRANCNODEHELPERS_H
 
 #include "main.h"
 #include "sync.h"

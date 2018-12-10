@@ -27,7 +27,7 @@ CMasternodeSync::CMasternodeSync()
 
 bool CMasternodeSync::IsSynced()
 {
-    return RequestedMasternodeAssets == FRENCHNODE_SYNC_FINISHED;
+    return RequestedMasternodeAssets == FRANCNODE_SYNC_FINISHED;
 }
 
 bool CMasternodeSync::IsBlockchainSynced()
@@ -81,7 +81,7 @@ void CMasternodeSync::Reset()
     countBudgetItemFin = 0;
     sumCommunityItemProp = 0;
     countCommunityItemProp = 0;
-    RequestedMasternodeAssets = FRENCHNODE_SYNC_INITIAL;
+    RequestedMasternodeAssets = FRANCNODE_SYNC_INITIAL;
     RequestedMasternodeAttempt = 0;
     nAssetSyncStarted = GetTime();
 }
@@ -89,7 +89,7 @@ void CMasternodeSync::Reset()
 void CMasternodeSync::AddedMasternodeList(uint256 hash)
 {
     if (mnodeman.mapSeenMasternodeBroadcast.count(hash)) {
-        if (mapSeenSyncMNB[hash] < FRENCHNODE_SYNC_THRESHOLD) {
+        if (mapSeenSyncMNB[hash] < FRANCNODE_SYNC_THRESHOLD) {
             lastMasternodeList = GetTime();
             mapSeenSyncMNB[hash]++;
         }
@@ -102,7 +102,7 @@ void CMasternodeSync::AddedMasternodeList(uint256 hash)
 void CMasternodeSync::AddedMasternodeWinner(uint256 hash)
 {
     if (masternodePayments.mapMasternodePayeeVotes.count(hash)) {
-        if (mapSeenSyncMNW[hash] < FRENCHNODE_SYNC_THRESHOLD) {
+        if (mapSeenSyncMNW[hash] < FRANCNODE_SYNC_THRESHOLD) {
             lastMasternodeWinner = GetTime();
             mapSeenSyncMNW[hash]++;
         }
@@ -116,7 +116,7 @@ void CMasternodeSync::AddedBudgetItem(uint256 hash)
 {
     if (budget.mapSeenMasternodeBudgetProposals.count(hash) || budget.mapSeenMasternodeBudgetVotes.count(hash) ||
         budget.mapSeenFinalizedBudgets.count(hash) || budget.mapSeenFinalizedBudgetVotes.count(hash)) {
-        if (mapSeenSyncBudget[hash] < FRENCHNODE_SYNC_THRESHOLD) {
+        if (mapSeenSyncBudget[hash] < FRANCNODE_SYNC_THRESHOLD) {
             lastBudgetItem = GetTime();
             mapSeenSyncBudget[hash]++;
         }
@@ -129,7 +129,7 @@ void CMasternodeSync::AddedBudgetItem(uint256 hash)
 void CMasternodeSync::AddedCommunityItem(uint256 hash)
 {
     if (communityVote.mapSeenMasternodeCommunityProposals.count(hash) || communityVote.mapSeenMasternodeCommunityVotes.count(hash)) {
-        if (mapSeenSyncCommunity[hash] < FRENCHNODE_SYNC_THRESHOLD) {
+        if (mapSeenSyncCommunity[hash] < FRANCNODE_SYNC_THRESHOLD) {
             lastCommunityItem = GetTime();
             mapSeenSyncCommunity[hash]++;
         }
@@ -157,26 +157,26 @@ bool CMasternodeSync::IsCommunityPropEmpty()
 void CMasternodeSync::GetNextAsset()
 {
     switch (RequestedMasternodeAssets) {
-    case (FRENCHNODE_SYNC_INITIAL):
-    case (FRENCHNODE_SYNC_FAILED): // should never be used here actually, use Reset() instead
+    case (FRANCNODE_SYNC_INITIAL):
+    case (FRANCNODE_SYNC_FAILED): // should never be used here actually, use Reset() instead
         ClearFulfilledRequest();
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_SPORKS;
+        RequestedMasternodeAssets = FRANCNODE_SYNC_SPORKS;
         break;
-    case (FRENCHNODE_SYNC_SPORKS):
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_LIST;
+    case (FRANCNODE_SYNC_SPORKS):
+        RequestedMasternodeAssets = FRANCNODE_SYNC_LIST;
         break;
-    case (FRENCHNODE_SYNC_LIST):
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_MNW;
+    case (FRANCNODE_SYNC_LIST):
+        RequestedMasternodeAssets = FRANCNODE_SYNC_MNW;
         break;
-    case (FRENCHNODE_SYNC_MNW):
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_BUDGET;
+    case (FRANCNODE_SYNC_MNW):
+        RequestedMasternodeAssets = FRANCNODE_SYNC_BUDGET;
         break;
-    case (FRENCHNODE_SYNC_BUDGET):
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_COMMUNITYVOTE;
+    case (FRANCNODE_SYNC_BUDGET):
+        RequestedMasternodeAssets = FRANCNODE_SYNC_COMMUNITYVOTE;
         break;
-    case (FRENCHNODE_SYNC_COMMUNITYVOTE):
+    case (FRANCNODE_SYNC_COMMUNITYVOTE):
         LogPrintf("CMasternodeSync::GetNextAsset - Sync has finished\n");
-        RequestedMasternodeAssets = FRENCHNODE_SYNC_FINISHED;
+        RequestedMasternodeAssets = FRANCNODE_SYNC_FINISHED;
         break;
     }
     RequestedMasternodeAttempt = 0;
@@ -186,21 +186,21 @@ void CMasternodeSync::GetNextAsset()
 std::string CMasternodeSync::GetSyncStatus()
 {
     switch (masternodeSync.RequestedMasternodeAssets) {
-    case FRENCHNODE_SYNC_INITIAL:
+    case FRANCNODE_SYNC_INITIAL:
         return _("Synchronization pending...");
-    case FRENCHNODE_SYNC_SPORKS:
+    case FRANCNODE_SYNC_SPORKS:
         return _("Synchronizing sporks...");
-    case FRENCHNODE_SYNC_LIST:
+    case FRANCNODE_SYNC_LIST:
         return _("Synchronizing masternodes...");
-    case FRENCHNODE_SYNC_MNW:
+    case FRANCNODE_SYNC_MNW:
         return _("Synchronizing masternode winners...");
-    case FRENCHNODE_SYNC_BUDGET:
+    case FRANCNODE_SYNC_BUDGET:
         return _("Synchronizing budgets...");
-    case FRENCHNODE_SYNC_COMMUNITYVOTE:
+    case FRANCNODE_SYNC_COMMUNITYVOTE:
         return _("Synchronizing community proposals...");
-    case FRENCHNODE_SYNC_FAILED:
+    case FRANCNODE_SYNC_FAILED:
         return _("Synchronization failed");
-    case FRENCHNODE_SYNC_FINISHED:
+    case FRANCNODE_SYNC_FINISHED:
         return _("Synchronization finished");
     }
     return "";
@@ -213,32 +213,32 @@ void CMasternodeSync::ProcessMessage(CNode* pfrom, std::string& strCommand, CDat
         int nCount;
         vRecv >> nItemID >> nCount;
 
-        if (RequestedMasternodeAssets >= FRENCHNODE_SYNC_FINISHED) return;
+        if (RequestedMasternodeAssets >= FRANCNODE_SYNC_FINISHED) return;
 
         //this means we will receive no further communication
         switch (nItemID) {
-        case (FRENCHNODE_SYNC_LIST):
+        case (FRANCNODE_SYNC_LIST):
             if (nItemID != RequestedMasternodeAssets) return;
             sumMasternodeList += nCount;
             countMasternodeList++;
             break;
-        case (FRENCHNODE_SYNC_MNW):
+        case (FRANCNODE_SYNC_MNW):
             if (nItemID != RequestedMasternodeAssets) return;
             sumMasternodeWinner += nCount;
             countMasternodeWinner++;
             break;
-        case (FRENCHNODE_SYNC_BUDGET_PROP):
-            if (RequestedMasternodeAssets != FRENCHNODE_SYNC_BUDGET) return;
+        case (FRANCNODE_SYNC_BUDGET_PROP):
+            if (RequestedMasternodeAssets != FRANCNODE_SYNC_BUDGET) return;
             sumBudgetItemProp += nCount;
             countBudgetItemProp++;
             break;
-        case (FRENCHNODE_SYNC_BUDGET_FIN):
-            if (RequestedMasternodeAssets != FRENCHNODE_SYNC_BUDGET) return;
+        case (FRANCNODE_SYNC_BUDGET_FIN):
+            if (RequestedMasternodeAssets != FRANCNODE_SYNC_BUDGET) return;
             sumBudgetItemFin += nCount;
             countBudgetItemFin++;
             break;
-        case (FRENCHNODE_SYNC_COMMUNITYVOTE_PROP):
-            if (RequestedMasternodeAssets != FRENCHNODE_SYNC_COMMUNITYVOTE) return;
+        case (FRANCNODE_SYNC_COMMUNITYVOTE_PROP):
+            if (RequestedMasternodeAssets != FRANCNODE_SYNC_COMMUNITYVOTE) return;
             sumCommunityItemProp += nCount;
             countCommunityItemProp++;
             break;
@@ -266,7 +266,7 @@ void CMasternodeSync::Process()
 {
     static int tick = 0;
 
-    if (tick++ % FRENCHNODE_SYNC_TIMEOUT != 0) return;
+    if (tick++ % FRANCNODE_SYNC_TIMEOUT != 0) return;
 
     if (IsSynced()) {
         /*
@@ -279,19 +279,19 @@ void CMasternodeSync::Process()
     }
 
     //try syncing again
-    if (RequestedMasternodeAssets == FRENCHNODE_SYNC_FAILED && lastFailure + (1 * 60) < GetTime()) {
+    if (RequestedMasternodeAssets == FRANCNODE_SYNC_FAILED && lastFailure + (1 * 60) < GetTime()) {
         Reset();
-    } else if (RequestedMasternodeAssets == FRENCHNODE_SYNC_FAILED) {
+    } else if (RequestedMasternodeAssets == FRANCNODE_SYNC_FAILED) {
         return;
     }
 
     LogPrint("masternode", "CMasternodeSync::Process() - tick %d RequestedMasternodeAssets %d\n", tick, RequestedMasternodeAssets);
 
-    if (RequestedMasternodeAssets == FRENCHNODE_SYNC_INITIAL) GetNextAsset();
+    if (RequestedMasternodeAssets == FRANCNODE_SYNC_INITIAL) GetNextAsset();
 
     // sporks synced but blockchain is not, wait until we're almost at a recent block to continue
     if (Params().NetworkID() != CBaseChainParams::REGTEST &&
-        !IsBlockchainSynced() && RequestedMasternodeAssets > FRENCHNODE_SYNC_SPORKS) return;
+        !IsBlockchainSynced() && RequestedMasternodeAssets > FRANCNODE_SYNC_SPORKS) return;
 
     TRY_LOCK(cs_vNodes, lockRecv);
     if (!lockRecv) return;
@@ -308,14 +308,14 @@ void CMasternodeSync::Process()
                 uint256 n = 0;
                 pnode->PushMessage("mnvs", n); //sync masternode votes
             } else {
-                RequestedMasternodeAssets = FRENCHNODE_SYNC_FINISHED;
+                RequestedMasternodeAssets = FRANCNODE_SYNC_FINISHED;
             }
             RequestedMasternodeAttempt++;
             return;
         }
 
         //set to synced
-        if (RequestedMasternodeAssets == FRENCHNODE_SYNC_SPORKS) {
+        if (RequestedMasternodeAssets == FRANCNODE_SYNC_SPORKS) {
             if (pnode->HasFulfilledRequest("getspork")) continue;
             pnode->FulfilledRequest("getspork");
 
@@ -327,9 +327,9 @@ void CMasternodeSync::Process()
         }
 
         if (pnode->nVersion >= masternodePayments.GetMinMasternodePaymentsProto()) {
-            if (RequestedMasternodeAssets == FRENCHNODE_SYNC_LIST) {
-                LogPrint("masternode", "CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - FRENCHNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - FRENCHNODE_SYNC_TIMEOUT);
-                if (lastMasternodeList > 0 && lastMasternodeList < GetTime() - FRENCHNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
+            if (RequestedMasternodeAssets == FRANCNODE_SYNC_LIST) {
+                LogPrint("masternode", "CMasternodeSync::Process() - lastMasternodeList %lld (GetTime() - FRANCNODE_SYNC_TIMEOUT) %lld\n", lastMasternodeList, GetTime() - FRANCNODE_SYNC_TIMEOUT);
+                if (lastMasternodeList > 0 && lastMasternodeList < GetTime() - FRANCNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
                     return;
                 }
@@ -339,10 +339,10 @@ void CMasternodeSync::Process()
 
                 // timeout
                 if (lastMasternodeList == 0 &&
-                    (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRENCHNODE_SYNC_TIMEOUT * 5)) {
-                    if (IsSporkActive(SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT)) {
+                    (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRANCNODE_SYNC_TIMEOUT * 5)) {
+                    if (IsSporkActive(SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT)) {
                         LogPrintf("CMasternodeSync::Process - ERROR - Sync has failed, will retry later\n");
-                        RequestedMasternodeAssets = FRENCHNODE_SYNC_FAILED;
+                        RequestedMasternodeAssets = FRANCNODE_SYNC_FAILED;
                         RequestedMasternodeAttempt = 0;
                         lastFailure = GetTime();
                         nCountFailures++;
@@ -352,15 +352,15 @@ void CMasternodeSync::Process()
                     return;
                 }
 
-                if (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3) return;
+                if (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3) return;
 
                 mnodeman.DsegUpdate(pnode);
                 RequestedMasternodeAttempt++;
                 return;
             }
 
-            if (RequestedMasternodeAssets == FRENCHNODE_SYNC_MNW) {
-                if (lastMasternodeWinner > 0 && lastMasternodeWinner < GetTime() - FRENCHNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
+            if (RequestedMasternodeAssets == FRANCNODE_SYNC_MNW) {
+                if (lastMasternodeWinner > 0 && lastMasternodeWinner < GetTime() - FRANCNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD) { //hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
                     return;
                 }
@@ -370,10 +370,10 @@ void CMasternodeSync::Process()
 
                 // timeout
                 if (lastMasternodeWinner == 0 &&
-                    (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRENCHNODE_SYNC_TIMEOUT * 5)) {
-                    if (IsSporkActive(SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT)) {
+                    (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRANCNODE_SYNC_TIMEOUT * 5)) {
+                    if (IsSporkActive(SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT)) {
                         LogPrintf("CMasternodeSync::Process - ERROR - Sync has failed, will retry later\n");
-                        RequestedMasternodeAssets = FRENCHNODE_SYNC_FAILED;
+                        RequestedMasternodeAssets = FRANCNODE_SYNC_FAILED;
                         RequestedMasternodeAttempt = 0;
                         lastFailure = GetTime();
                         nCountFailures++;
@@ -383,7 +383,7 @@ void CMasternodeSync::Process()
                     return;
                 }
 
-                if (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3) return;
+                if (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3) return;
 
                 CBlockIndex* pindexPrev = chainActive.Tip();
                 if (pindexPrev == NULL) return;
@@ -397,10 +397,10 @@ void CMasternodeSync::Process()
         }
 
         if (pnode->nVersion >= ActiveProtocol()) {
-            if (RequestedMasternodeAssets == FRENCHNODE_SYNC_BUDGET) {
+            if (RequestedMasternodeAssets == FRANCNODE_SYNC_BUDGET) {
 
                 // We'll start rejecting votes if we accidentally get set as synced too soon
-                if (lastBudgetItem > 0 && lastBudgetItem < GetTime() - FRENCHNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD) {
+                if (lastBudgetItem > 0 && lastBudgetItem < GetTime() - FRANCNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD) {
 
                     // Hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
@@ -413,7 +413,7 @@ void CMasternodeSync::Process()
 
                 // timeout
                 if (lastBudgetItem == 0 &&
-                    (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRENCHNODE_SYNC_TIMEOUT * 5)) {
+                    (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRANCNODE_SYNC_TIMEOUT * 5)) {
                     // maybe there is no budgets at all, so just finish syncing
                     GetNextAsset();
                     activeMasternode.ManageStatus();
@@ -423,7 +423,7 @@ void CMasternodeSync::Process()
                 if (pnode->HasFulfilledRequest("busync")) continue;
                 pnode->FulfilledRequest("busync");
 
-                if (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3) return;
+                if (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3) return;
 
                 uint256 n = 0;
                 pnode->PushMessage("mnvs", n); //sync masternode votes
@@ -432,10 +432,10 @@ void CMasternodeSync::Process()
                 return;
             }
 
-            if (RequestedMasternodeAssets == FRENCHNODE_SYNC_COMMUNITYVOTE) {
+            if (RequestedMasternodeAssets == FRANCNODE_SYNC_COMMUNITYVOTE) {
 
                 // We'll start rejecting votes if we accidentally get set as synced too soon
-                if (lastCommunityItem > 0 && lastCommunityItem < GetTime() - FRENCHNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD) {
+                if (lastCommunityItem > 0 && lastCommunityItem < GetTime() - FRANCNODE_SYNC_TIMEOUT * 2 && RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD) {
 
                     // Hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
@@ -448,7 +448,7 @@ void CMasternodeSync::Process()
 
                 // timeout
                 if (lastCommunityItem == 0 &&
-                    (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRENCHNODE_SYNC_TIMEOUT * 5)) {
+                    (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > FRANCNODE_SYNC_TIMEOUT * 5)) {
                     // maybe there is are no community proposals at all, so just finish syncing
                     GetNextAsset();
                     activeMasternode.ManageStatus();
@@ -458,7 +458,7 @@ void CMasternodeSync::Process()
                 if (pnode->HasFulfilledRequest("comsync")) continue;
                 pnode->FulfilledRequest("comsync");
 
-                if (RequestedMasternodeAttempt >= FRENCHNODE_SYNC_THRESHOLD * 3) return;
+                if (RequestedMasternodeAttempt >= FRANCNODE_SYNC_THRESHOLD * 3) return;
 
                 uint256 n = 0;
                 pnode->PushMessage("mncvs", n); //sync masternode community votes

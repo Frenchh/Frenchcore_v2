@@ -1,0 +1,26 @@
+[Unit]
+Description=Franc's distributed currency daemon
+After=network.target
+
+[Service]
+User=franc
+Group=franc
+
+Type=forking
+PIDFile=/var/lib/francd/francd.pid
+
+ExecStart=/usr/bin/francd -daemon -pid=/var/lib/francd/francd.pid \
+          -conf=/etc/franc/franc.conf -datadir=/var/lib/francd
+
+ExecStop=-/usr/bin/franc-cli -conf=/etc/franc/franc.conf \
+         -datadir=/var/lib/francd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

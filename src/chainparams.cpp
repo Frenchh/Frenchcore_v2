@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -106,8 +106,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // French: 1 day
-        nTargetSpacing = 2 * 60;  // French: 2 minutes
+        nTargetTimespan = 1 * 60; // Franc: 1 day
+        nTargetSpacing = 2 * 60;  // Franc: 2 minutes
         nMaturity = 10;
         nMasternodeCountDrift = 20;
         nMaxMoneyOut = 21000000 * COIN;
@@ -133,7 +133,7 @@ public:
          * nonce: 1622640
          * genesis_hash: 00000384e57c8b5e6a33c32f2649aa92dbac025609079f8e55dcc72890df1c7c
          */
-        const char* pszTimestamp = "The French blockchain that allows participatory democracy.";
+        const char* pszTimestamp = "The Franc blockchain that allows participatory democracy.";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -155,21 +155,21 @@ public:
         // DNS Seeding
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("seed1.french-blockchain.com", "seed1.french-blockchain.com"));
-        //vSeeds.push_back(CDNSSeedData("seed2.french-blockchain.com", "seed2.french-blockchain.com"));
-        //vSeeds.push_back(CDNSSeedData("seed3.french-blockchain.com", "seed3.french-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed1.franc-blockchain.com", "seed1.franc-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed2.franc-blockchain.com", "seed2.franc-blockchain.com"));
+        //vSeeds.push_back(CDNSSeedData("seed3.franc-blockchain.com", "seed3.franc-blockchain.com"));
 
-        // French addresses start with 'F'
+        // Franc addresses start with 'F'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 36);
-        // French script addresses start with 'R'
+        // Franc script addresses start with 'R'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 60);
-        // French private keys start with 'K'
+        // Franc private keys start with 'K'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 46);
-        // French BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        // Franc BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        // French BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
+        // Franc BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        // French BIP44 coin type is '222' (0x800000de)
+        // Franc BIP44 coin type is '222' (0x800000de)
         // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0xde).convert_to_container<std::vector<unsigned char> >();
 
@@ -219,8 +219,8 @@ public:
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // French: 1 day
-        nTargetSpacing = 2 * 60;  // French: 1 minute
+        nTargetTimespan = 1 * 60; // Franc: 1 day
+        nTargetSpacing = 2 * 60;  // Franc: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
         nMasternodeCountDrift = 4;
@@ -237,17 +237,17 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        // Testnet French addresses start with 'g'
+        // Testnet Franc addresses start with 'g'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 98);
-        // Testnet French script addresses start with '5' or '6'
+        // Testnet Franc script addresses start with '5' or '6'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 12);
         // Testnet private keys start with 'k'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 108);
-        // Testnet French BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Franc BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet French BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Franc BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
-        // Testnet french BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet franc BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -293,8 +293,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // French: 1 day
-        nTargetSpacing = 2 * 60;        // French: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // Franc: 1 day
+        nTargetSpacing = 2 * 60;        // Franc: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1544428800;
         genesis.nBits = 0x1e0ffff0;

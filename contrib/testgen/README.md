@@ -1,6 +1,6 @@
 ### TestGen ###
 
-Utilities to generate test vectors for the data-driven French tests.
+Utilities to generate test vectors for the data-driven Franc tests.
 
 Usage: 
 

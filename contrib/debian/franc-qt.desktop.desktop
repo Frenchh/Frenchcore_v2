@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Franc
+Comment=Franc P2P Cryptocurrency
+Exec=franc-qt %u
+Terminal=false
+Type=Application
+Icon=franc128
+MimeType=x-scheme-handler/franc;
+Categories=Office;Finance;
+Name[en_US]=franc-qt.desktop

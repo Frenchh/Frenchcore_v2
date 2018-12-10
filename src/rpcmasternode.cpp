@@ -79,7 +79,7 @@ UniValue masternode(const UniValue& params, bool fHelp)
             "  debug        - Print masternode status\n"
             "  genkey       - Generate new masternodeprivkey\n"
             "  outputs      - Print masternode compatible outputs\n"
-            "  start        - Start masternode configured in french.conf\n"
+            "  start        - Start masternode configured in franc.conf\n"
             "  start-alias  - Start single masternode by assigned alias configured in masternode.conf\n"
             "  start-<mode> - Start masternodes configured in masternode.conf (<mode>: 'all', 'missing', 'disabled')\n"
             "  status       - Print masternode status information\n"
@@ -380,7 +380,7 @@ UniValue masternodedebug (const UniValue& params, bool fHelp)
             "\nExamples:\n" +
             HelpExampleCli("masternodedebug", "") + HelpExampleRpc("masternodedebug", ""));
 
-    if (activeMasternode.status != ACTIVE_FRENCHNODE_INITIAL || !masternodeSync.IsSynced())
+    if (activeMasternode.status != ACTIVE_FRANCNODE_INITIAL || !masternodeSync.IsSynced())
         return activeMasternode.GetStatus();
 
     CTxIn vin = CTxIn();
@@ -444,8 +444,8 @@ UniValue startmasternode (const UniValue& params, bool fHelp)
     if (strCommand == "local") {
         if (!fMasterNode) throw runtime_error("you must set masternode=1 in the configuration\n");
 
-        if (activeMasternode.status != ACTIVE_FRENCHNODE_STARTED) {
-            activeMasternode.status = ACTIVE_FRENCHNODE_INITIAL; // TODO: consider better way
+        if (activeMasternode.status != ACTIVE_FRANCNODE_STARTED) {
+            activeMasternode.status = ACTIVE_FRANCNODE_INITIAL; // TODO: consider better way
             activeMasternode.ManageStatus();
             if (fLock)
                 pwalletMain->Lock();
@@ -459,8 +459,8 @@ UniValue startmasternode (const UniValue& params, bool fHelp)
             throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
         if ((strCommand == "missing" || strCommand == "disabled") &&
-            (masternodeSync.RequestedMasternodeAssets <= FRENCHNODE_SYNC_LIST ||
-                masternodeSync.RequestedMasternodeAssets == FRENCHNODE_SYNC_FAILED)) {
+            (masternodeSync.RequestedMasternodeAssets <= FRANCNODE_SYNC_LIST ||
+                masternodeSync.RequestedMasternodeAssets == FRANCNODE_SYNC_FAILED)) {
             throw runtime_error("You can't use this command until masternode list is synced\n");
         }
 

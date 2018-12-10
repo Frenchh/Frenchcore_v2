@@ -1,21 +1,21 @@
 
 Debian
 ====================
-This directory contains files used to package frenchd/french-qt
-for Debian-based Linux systems. If you compile frenchd/french-qt yourself, there are some useful files here.
+This directory contains files used to package francd/franc-qt
+for Debian-based Linux systems. If you compile francd/franc-qt yourself, there are some useful files here.
 
-## french: URI support ##
+## franc: URI support ##
 
 
-french-qt.desktop  (Gnome / Open Desktop)
+franc-qt.desktop  (Gnome / Open Desktop)
 To install:
 
-	sudo desktop-file-install french-qt.desktop
+	sudo desktop-file-install franc-qt.desktop
 	sudo update-desktop-database
 
 If you build yourself, you will either need to modify the paths in
-the .desktop file or copy or symlink your frenchqt binary to `/usr/bin`
-and the `../../share/pixmaps/french128.png` to `/usr/share/pixmaps`
+the .desktop file or copy or symlink your francqt binary to `/usr/bin`
+and the `../../share/pixmaps/franc128.png` to `/usr/share/pixmaps`
 
-french-qt.protocol (KDE)
+franc-qt.protocol (KDE)
 

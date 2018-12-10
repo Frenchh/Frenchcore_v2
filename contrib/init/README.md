@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: frenchd.service
-Upstart: frenchd.conf
-OpenRC:  frenchd.openrc
-         frenchd.openrcconf
-CentOS:  frenchd.init
+SystemD: francd.service
+Upstart: francd.conf
+OpenRC:  francd.openrc
+         francd.openrcconf
+CentOS:  francd.init
 
 have been made available to assist packagers in creating node packages here.
 

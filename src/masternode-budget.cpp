@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -907,9 +907,9 @@ CAmount CBudgetManager::GetTotalBudget(int nHeight)
     if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 5000)
         nSubsidy = 1.05 * COIN;
     else if (nHeight > 5000 && nHeight <= 25000)
-        nSubsidy = 31.5 * COIN;
+        nSubsidy = 26.5 * COIN;
     else if (nHeight > 25000 && nHeight <= 100000)
-        nSubsidy = 22.05 * COIN;
+        nSubsidy = 17.05 * COIN;
     else if (nHeight > 100000 && nHeight <= 1050000)
         nSubsidy = 10.5 * COIN;
     else if (nHeight > 1050000 && nHeight <= 2100000)
@@ -928,7 +928,7 @@ void CBudgetManager::NewBlock()
     TRY_LOCK(cs, fBudgetNewBlock);
     if (!fBudgetNewBlock) return;
 
-    if (masternodeSync.RequestedMasternodeAssets <= FRENCHNODE_SYNC_BUDGET) return;
+    if (masternodeSync.RequestedMasternodeAssets <= FRANCNODE_SYNC_BUDGET) return;
 
     if (strBudgetMode == "suggest") { //suggest the budget we see
         SubmitFinalBudget();
@@ -1332,7 +1332,7 @@ void CBudgetManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
         ++it1;
     }
 
-    pfrom->PushMessage("ssc", FRENCHNODE_SYNC_BUDGET_PROP, nInvCount);
+    pfrom->PushMessage("ssc", FRANCNODE_SYNC_BUDGET_PROP, nInvCount);
 
     LogPrint("mnbudget", "CBudgetManager::Sync - sent %d items\n", nInvCount);
 
@@ -1360,7 +1360,7 @@ void CBudgetManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
         ++it3;
     }
 
-    pfrom->PushMessage("ssc", FRENCHNODE_SYNC_BUDGET_FIN, nInvCount);
+    pfrom->PushMessage("ssc", FRANCNODE_SYNC_BUDGET_FIN, nInvCount);
     LogPrint("mnbudget", "CBudgetManager::Sync - sent %d items\n", nInvCount);
 }
 

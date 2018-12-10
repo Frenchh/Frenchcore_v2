@@ -1,0 +1,26 @@
+# /etc/conf.d/francd: config file for /etc/init.d/francd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/franc/franc.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/francd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/francd.pid"
+
+# Where to write francd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/francd"
+
+# User and group to own francd process
+#BITCOIND_USER="franc"
+#BITCOIND_GROUP="franc"
+
+# Path to francd executable
+#BITCOIND_BIN="/usr/bin/francd"
+
+# Nice value to run francd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

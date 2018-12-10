@@ -14,7 +14,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"io.savebitcoin.French-Qt";
+        return @"io.savebitcoin.Franc-Qt";
     } else {
         return [self __bundleIdentifier];
     }

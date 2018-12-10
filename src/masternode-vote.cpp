@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -368,7 +368,7 @@ void CCommunityVoteManager::NewBlock()
     TRY_LOCK(cs, fVoteNewBlock);
     if (!fVoteNewBlock) return;
 
-    if (masternodeSync.RequestedMasternodeAssets <= FRENCHNODE_SYNC_COMMUNITYVOTE) return;
+    if (masternodeSync.RequestedMasternodeAssets <= FRANCNODE_SYNC_COMMUNITYVOTE) return;
 
     // incremental sync with our peers
     if (masternodeSync.IsSynced()) {
@@ -623,7 +623,7 @@ void CCommunityVoteManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
         ++it1;
     }
 
-    pfrom->PushMessage("ssc", FRENCHNODE_SYNC_COMMUNITYVOTE_PROP, nInvCount);
+    pfrom->PushMessage("ssc", FRANCNODE_SYNC_COMMUNITYVOTE_PROP, nInvCount);
     LogPrint("mncommunityvote", "CCommunityVoteManager::Sync - sent %d items\n", nInvCount);
 }
 

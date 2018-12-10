@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,14 +29,14 @@ void CActiveMasternode::ManageStatus()
 
     //need correct blocks to send ping
     if (Params().NetworkID() != CBaseChainParams::REGTEST && !masternodeSync.IsBlockchainSynced()) {
-        status = ACTIVE_FRENCHNODE_SYNC_IN_PROCESS;
+        status = ACTIVE_FRANCNODE_SYNC_IN_PROCESS;
         LogPrintf("CActiveMasternode::ManageStatus() - %s\n", GetStatus());
         return;
     }
 
-    if (status == ACTIVE_FRENCHNODE_SYNC_IN_PROCESS) status = ACTIVE_FRENCHNODE_INITIAL;
+    if (status == ACTIVE_FRANCNODE_SYNC_IN_PROCESS) status = ACTIVE_FRANCNODE_INITIAL;
 
-    if (status == ACTIVE_FRENCHNODE_INITIAL) {
+    if (status == ACTIVE_FRANCNODE_INITIAL) {
         CMasternode* pmn;
         pmn = mnodeman.Find(pubKeyMasternode);
         if (pmn != NULL) {
@@ -45,9 +45,9 @@ void CActiveMasternode::ManageStatus()
         }
     }
 
-    if (status != ACTIVE_FRENCHNODE_STARTED) {
+    if (status != ACTIVE_FRANCNODE_STARTED) {
         // Set defaults
-        status = ACTIVE_FRENCHNODE_NOT_CAPABLE;
+        status = ACTIVE_FRANCNODE_NOT_CAPABLE;
         notCapableReason = "";
 
         if (pwalletMain->IsLocked()) {
@@ -91,8 +91,8 @@ void CActiveMasternode::ManageStatus()
         CKey keyCollateralAddress;
 
         if (GetMasterNodeVin(vin, pubKeyCollateralAddress, keyCollateralAddress)) {
-            if (GetInputAge(vin) < FRENCHNODE_MIN_CONFIRMATIONS) {
-                status = ACTIVE_FRENCHNODE_INPUT_TOO_NEW;
+            if (GetInputAge(vin) < FRANCNODE_MIN_CONFIRMATIONS) {
+                status = ACTIVE_FRANCNODE_INPUT_TOO_NEW;
                 notCapableReason = strprintf("%s - %d confirmations", GetStatus(), GetInputAge(vin));
                 LogPrintf("CActiveMasternode::ManageStatus() - %s\n", notCapableReason);
                 return;
@@ -123,7 +123,7 @@ void CActiveMasternode::ManageStatus()
             mnb.Relay();
 
             LogPrintf("CActiveMasternode::ManageStatus() - Is capable master node!\n");
-            status = ACTIVE_FRENCHNODE_STARTED;
+            status = ACTIVE_FRANCNODE_STARTED;
 
             return;
         } else {
@@ -142,15 +142,15 @@ void CActiveMasternode::ManageStatus()
 std::string CActiveMasternode::GetStatus()
 {
     switch (status) {
-    case ACTIVE_FRENCHNODE_INITIAL:
+    case ACTIVE_FRANCNODE_INITIAL:
         return "Node just started, not yet activated";
-    case ACTIVE_FRENCHNODE_SYNC_IN_PROCESS:
+    case ACTIVE_FRANCNODE_SYNC_IN_PROCESS:
         return "Sync in progress. Must wait until sync is complete to start Masternode";
-    case ACTIVE_FRENCHNODE_INPUT_TOO_NEW:
-        return strprintf("Masternode input must have at least %d confirmations", FRENCHNODE_MIN_CONFIRMATIONS);
-    case ACTIVE_FRENCHNODE_NOT_CAPABLE:
+    case ACTIVE_FRANCNODE_INPUT_TOO_NEW:
+        return strprintf("Masternode input must have at least %d confirmations", FRANCNODE_MIN_CONFIRMATIONS);
+    case ACTIVE_FRANCNODE_NOT_CAPABLE:
         return "Not capable masternode: " + notCapableReason;
-    case ACTIVE_FRENCHNODE_STARTED:
+    case ACTIVE_FRANCNODE_STARTED:
         return "Masternode successfully started";
     default:
         return "unknown";
@@ -159,7 +159,7 @@ std::string CActiveMasternode::GetStatus()
 
 bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
 {
-    if (status != ACTIVE_FRENCHNODE_STARTED) {
+    if (status != ACTIVE_FRANCNODE_STARTED) {
         errorMessage = "Masternode is not in a running status";
         return false;
     }
@@ -183,7 +183,7 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
     // Update lastPing for our masternode in Masternode list
     CMasternode* pmn = mnodeman.Find(vin);
     if (pmn != NULL) {
-        if (pmn->IsPingedWithin(FRENCHNODE_PING_SECONDS, mnp.sigTime)) {
+        if (pmn->IsPingedWithin(FRANCNODE_PING_SECONDS, mnp.sigTime)) {
             errorMessage = "Too early to send Masternode Ping";
             return false;
         }
@@ -202,7 +202,7 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
     } else {
         // Seems like we are trying to send a ping while the Masternode is not registered in the network
         errorMessage = "Masternode List doesn't include our Masternode, shutting down Masternode pinging service! " + vin.ToString();
-        status = ACTIVE_FRENCHNODE_NOT_CAPABLE;
+        status = ACTIVE_FRANCNODE_NOT_CAPABLE;
         notCapableReason = errorMessage;
         return false;
     }
@@ -390,7 +390,7 @@ vector<COutput> CActiveMasternode::SelectCoinsMasternode()
 
     // Filter
     for (const COutput& out : vCoins) {
-        if (out.tx->vout[out.i].nValue == FRENCHNODE_COLLATERAL * COIN)
+        if (out.tx->vout[out.i].nValue == FRANCNODE_COLLATERAL * COIN)
             filteredCoins.push_back(out);
     }
     return filteredCoins;
@@ -401,7 +401,7 @@ bool CActiveMasternode::EnableHotColdMasterNode(CTxIn& newVin, CService& newServ
 {
     if (!fMasterNode) return false;
 
-    status = ACTIVE_FRENCHNODE_STARTED;
+    status = ACTIVE_FRANCNODE_STARTED;
 
     //The values below are needed for signing mnping messages going forward
     vin = newVin;

@@ -1,22 +1,22 @@
-French Core version 1.3.0 is now available from:
+Franc Core version 1.3.0 is now available from:
 
-  <https://github.com/french/french/releases>
+  <https://github.com/franc/franc/releases>
 
 This is a new minor version release, including various bug fixes and improvements.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/french/french/issues>
+  <https://github.com/franc/franc/issues>
 
 How to Upgrade
 ==============
 
-If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/French-Qt (on Mac) or frenchd/french-qt (on Linux).
+If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/Franc-Qt (on Mac) or francd/franc-qt (on Linux).
 
 Compatibility
 ==============
 
-French Core is extensively tested on multiple operating systems using
+Franc Core is extensively tested on multiple operating systems using
 Linux, macOS 10.10+, and Windows 7 and later.
 
 Change log

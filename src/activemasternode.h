@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ACTIVEFRENCHNODE_H
-#define ACTIVEFRENCHNODE_H
+#ifndef ACTIVEFRANCNODE_H
+#define ACTIVEFRANCNODE_H
 
 #include "init.h"
 #include "key.h"
@@ -13,11 +13,11 @@
 #include "sync.h"
 #include "wallet.h"
 
-#define ACTIVE_FRENCHNODE_INITIAL 0 // initial state
-#define ACTIVE_FRENCHNODE_SYNC_IN_PROCESS 1
-#define ACTIVE_FRENCHNODE_INPUT_TOO_NEW 2
-#define ACTIVE_FRENCHNODE_NOT_CAPABLE 3
-#define ACTIVE_FRENCHNODE_STARTED 4
+#define ACTIVE_FRANCNODE_INITIAL 0 // initial state
+#define ACTIVE_FRANCNODE_SYNC_IN_PROCESS 1
+#define ACTIVE_FRANCNODE_INPUT_TOO_NEW 2
+#define ACTIVE_FRANCNODE_NOT_CAPABLE 3
+#define ACTIVE_FRANCNODE_STARTED 4
 
 // Responsible for activating the Masternode and pinging the network
 class CActiveMasternode
@@ -50,7 +50,7 @@ public:
 
     CActiveMasternode()
     {
-        status = ACTIVE_FRENCHNODE_INITIAL;
+        status = ACTIVE_FRANCNODE_INITIAL;
     }
 
     /// Manage status of main Masternode

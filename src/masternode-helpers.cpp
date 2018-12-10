@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,7 +20,7 @@ void ThreadMasternodePool()
     if (fLiteMode) return; //disable all Masternode related functionality
 
     // Make this thread recognisable
-    RenameThread("french-mnpool");
+    RenameThread("franc-mnpool");
 
     unsigned int c = 0;
 
@@ -35,7 +35,7 @@ void ThreadMasternodePool()
 
             // check if we should activate or ping every few minutes,
             // start right after sync is considered to be done
-            if (c % FRENCHNODE_PING_SECONDS == 0) activeMasternode.ManageStatus();
+            if (c % FRANCNODE_PING_SECONDS == 0) activeMasternode.ManageStatus();
 
             if (c % 60 == 0) {
                 mnodeman.CheckAndRemove();
@@ -55,7 +55,7 @@ bool CMasternodeSigner::IsVinAssociatedWithPubkey(CTxIn& vin, CPubKey& pubkey)
     uint256 hash;
     if (GetTransaction(vin.prevout.hash, txVin, hash, true)) {
         BOOST_FOREACH (CTxOut out, txVin.vout) {
-            if (out.nValue == FRENCHNODE_COLLATERAL * COIN) {
+            if (out.nValue == FRANCNODE_COLLATERAL * COIN) {
                 if (out.scriptPubKey == payee2) return true;
             }
         }

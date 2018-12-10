@@ -6,7 +6,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/french-config.h"
+#include "config/franc-config.h"
 #endif
 
 #include "util.h"
@@ -105,7 +105,7 @@ std::string to_internal(const std::string&);
 
 using namespace std;
 
-// French only features
+// Franc only features
 // Masternode
 bool fMasterNode = false;
 string strMasterNodePrivKey = "";
@@ -227,8 +227,8 @@ bool LogAcceptCategory(const char* category)
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
-            // "french" is a composite category enabling all French-related debug output
-            if (ptrCategory->count(string("french"))) {
+            // "franc" is a composite category enabling all Franc-related debug output
+            if (ptrCategory->count(string("franc"))) {
                 ptrCategory->insert(string("swifttx"));
                 ptrCategory->insert(string("masternode"));
                 ptrCategory->insert(string("mnpayments"));
@@ -392,7 +392,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "french";
+    const char* pszModule = "franc";
 #endif
     if (pex)
         return strprintf(
@@ -413,13 +413,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-// Windows < Vista: C:\Documents and Settings\Username\Application Data\French
-// Windows >= Vista: C:\Users\Username\AppData\Roaming\French
-// Mac: ~/Library/Application Support/French
-// Unix: ~/.french
+// Windows < Vista: C:\Documents and Settings\Username\Application Data\Franc
+// Windows >= Vista: C:\Users\Username\AppData\Roaming\Franc
+// Mac: ~/Library/Application Support/Franc
+// Unix: ~/.franc
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "French";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Franc";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -431,10 +431,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "French";
+    return pathRet / "Franc";
 #else
     // Unix
-    return pathRet / ".french";
+    return pathRet / ".franc";
 #endif
 #endif
 }
@@ -481,7 +481,7 @@ void ClearDatadirCache()
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "french.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "franc.conf"));
     if (!pathConfigFile.is_complete())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
 
@@ -500,7 +500,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
-        // Create empty french.conf if it does not exist
+        // Create empty franc.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
         if (configFile != NULL)
             fclose(configFile);
@@ -511,7 +511,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it) {
-        // Don't overwrite existing settings so command line settings override french.conf
+        // Don't overwrite existing settings so command line settings override franc.conf
         string strKey = string("-") + it->string_key;
         string strValue = it->value[0];
         InterpretNegativeSetting(strKey, strValue);
@@ -526,7 +526,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 #ifndef WIN32
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "frenchd.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "francd.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }

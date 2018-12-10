@@ -1,11 +1,11 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRENCHNODE_BUDGET_H
-#define FRENCHNODE_BUDGET_H
+#ifndef FRANCNODE_BUDGET_H
+#define FRANCNODE_BUDGET_H
 
 #include "base58.h"
 #include "init.h"

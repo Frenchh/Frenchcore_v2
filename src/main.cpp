@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -48,7 +48,7 @@ using namespace boost;
 using namespace std;
 
 #if defined(NDEBUG)
-#error "French cannot be compiled without assertions."
+#error "Franc cannot be compiled without assertions."
 #endif
 
 /**
@@ -1562,9 +1562,9 @@ int64_t GetBlockValue(int nHeight)
     else if (nHeight <= 5000)
         nSubsidy = 1 * COIN;
     else if (nHeight > 5000 && nHeight <= 25000)
-        nSubsidy = 30 * COIN;
+        nSubsidy = 25 * COIN;
     else if (nHeight > 25000 && nHeight <= 100000)
-        nSubsidy = 20 * COIN;
+        nSubsidy = 15 * COIN;
     else if (nHeight > 100000 && nHeight <= 1050000)
         nSubsidy = 10 * COIN;
     else if (nHeight > 1050000 && nHeight <= 2100000)
@@ -1985,7 +1985,7 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("french-scriptch");
+    RenameThread("franc-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -3458,7 +3458,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         return error("%s : ActivateBestChain failed", __func__);
 
     if (!fLiteMode) {
-        if (masternodeSync.RequestedMasternodeAssets > FRENCHNODE_SYNC_LIST) {
+        if (masternodeSync.RequestedMasternodeAssets > FRANCNODE_SYNC_LIST) {
             masternodePayments.ProcessBlock(GetHeight() + 10);
             budget.NewBlock();
             communityVote.NewBlock();
@@ -4160,7 +4160,7 @@ bool static AlreadyHave(const CInv& inv)
         return mapTxLockVote.count(inv.hash);
     case MSG_SPORK:
         return mapSporks.count(inv.hash);
-    case MSG_FRENCHNODE_WINNER:
+    case MSG_FRANCNODE_WINNER:
         if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
             masternodeSync.AddedMasternodeWinner(inv.hash);
             return true;
@@ -4190,13 +4190,13 @@ bool static AlreadyHave(const CInv& inv)
             return true;
         }
         return false;
-    case MSG_FRENCHNODE_ANNOUNCE:
+    case MSG_FRANCNODE_ANNOUNCE:
         if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
             masternodeSync.AddedMasternodeList(inv.hash);
             return true;
         }
         return false;
-    case MSG_FRENCHNODE_PING:
+    case MSG_FRANCNODE_PING:
         return mnodeman.mapSeenMasternodePing.count(inv.hash);
     case MSG_COMMUNITY_PROPOSAL:
         if (communityVote.mapSeenMasternodeCommunityProposals.count(inv.hash)) {
@@ -4334,7 +4334,7 @@ void static ProcessGetData(CNode* pfrom)
                         pushed = true;
                     }
                 }
-                if (!pushed && inv.type == MSG_FRENCHNODE_WINNER) {
+                if (!pushed && inv.type == MSG_FRANCNODE_WINNER) {
                     if (masternodePayments.mapMasternodePayeeVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
@@ -4383,7 +4383,7 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FRENCHNODE_ANNOUNCE) {
+                if (!pushed && inv.type == MSG_FRANCNODE_ANNOUNCE) {
                     if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
@@ -4393,7 +4393,7 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FRENCHNODE_PING) {
+                if (!pushed && inv.type == MSG_FRANCNODE_PING) {
                     if (mnodeman.mapSeenMasternodePing.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);

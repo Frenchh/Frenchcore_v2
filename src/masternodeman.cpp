@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -15,7 +15,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 
-#define MN_WINNER_MINIMUM_AGE 8000    // Age in seconds. This should be > FRENCHNODE_REMOVAL_SECONDS to avoid misconfigured new nodes in the list.
+#define MN_WINNER_MINIMUM_AGE 8000    // Age in seconds. This should be > FRANCNODE_REMOVAL_SECONDS to avoid misconfigured new nodes in the list.
 
 /** Masternode manager */
 CMasternodeMan mnodeman;
@@ -228,7 +228,7 @@ void CMasternodeMan::AskForMN(CNode* pnode, CTxIn& vin)
 
     LogPrint("masternode", "CMasternodeMan::AskForMN - Asking node for missing entry, vin: %s\n", vin.prevout.hash.ToString());
     pnode->PushMessage("dseg", vin);
-    int64_t askAgain = GetTime() + FRENCHNODE_MIN_MNP_SECONDS;
+    int64_t askAgain = GetTime() + FRANCNODE_MIN_MNP_SECONDS;
     mWeAskedForMasternodeListEntry[vin.prevout] = askAgain;
 }
 
@@ -250,9 +250,9 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
     //remove inactive and outdated
     vector<CMasternode>::iterator it = vMasternodes.begin();
     while (it != vMasternodes.end()) {
-        if ((*it).activeState == CMasternode::FRENCHNODE_REMOVE ||
-            (*it).activeState == CMasternode::FRENCHNODE_VIN_SPENT ||
-            (forceExpiredRemoval && (*it).activeState == CMasternode::FRENCHNODE_EXPIRED) ||
+        if ((*it).activeState == CMasternode::FRANCNODE_REMOVE ||
+            (*it).activeState == CMasternode::FRANCNODE_VIN_SPENT ||
+            (forceExpiredRemoval && (*it).activeState == CMasternode::FRANCNODE_EXPIRED) ||
             (*it).protocolVersion < masternodePayments.GetMinMasternodePaymentsProto()) {
             LogPrint("masternode", "CMasternodeMan: Removing inactive Masternode %s - %i now\n", (*it).vin.prevout.hash.ToString(), size() - 1);
 
@@ -318,7 +318,7 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
     // remove expired mapSeenMasternodeBroadcast
     map<uint256, CMasternodeBroadcast>::iterator it3 = mapSeenMasternodeBroadcast.begin();
     while (it3 != mapSeenMasternodeBroadcast.end()) {
-        if ((*it3).second.lastPing.sigTime < GetTime() - (FRENCHNODE_REMOVAL_SECONDS * 2)) {
+        if ((*it3).second.lastPing.sigTime < GetTime() - (FRANCNODE_REMOVAL_SECONDS * 2)) {
             mapSeenMasternodeBroadcast.erase(it3++);
             masternodeSync.mapSeenSyncMNB.erase((*it3).second.GetHash());
         } else {
@@ -329,7 +329,7 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
     // remove expired mapSeenMasternodePing
     map<uint256, CMasternodePing>::iterator it4 = mapSeenMasternodePing.begin();
     while (it4 != mapSeenMasternodePing.end()) {
-        if ((*it4).second.sigTime < GetTime() - (FRENCHNODE_REMOVAL_SECONDS * 2)) {
+        if ((*it4).second.sigTime < GetTime() - (FRANCNODE_REMOVAL_SECONDS * 2)) {
             mapSeenMasternodePing.erase(it4++);
         } else {
             ++it4;
@@ -359,10 +359,10 @@ int CMasternodeMan::stable_size ()
         if (mn.protocolVersion < nMinProtocol)
             continue; // Skip obsolete versions
 
-        if (IsSporkActive (SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT)) {
+        if (IsSporkActive (SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT)) {
             nMasternode_Age = GetAdjustedTime() - mn.sigTime;
             if (nMasternode_Age < nMasternode_Min_Age)
-                continue; // Skip masternodes younger than (default) 8000 sec (MUST be > FRENCHNODE_REMOVAL_SECONDS)
+                continue; // Skip masternodes younger than (default) 8000 sec (MUST be > FRANCNODE_REMOVAL_SECONDS)
         }
         mn.Check ();
         if (!mn.IsEnabled ())
@@ -430,7 +430,7 @@ void CMasternodeMan::DsegUpdate(CNode* pnode)
     }
 
     pnode->PushMessage("dseg", CTxIn());
-    int64_t askAgain = GetTime() + FRENCHNODES_DSEG_SECONDS;
+    int64_t askAgain = GetTime() + FRANCNODES_DSEG_SECONDS;
     mWeAskedForMasternodeList[pnode->addr] = askAgain;
 }
 
@@ -607,7 +607,7 @@ int CMasternodeMan::GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight, in
             continue;                                                       // Skip obsolete versions
         }
 
-        if (IsSporkActive(SPORK_8_FRENCHNODE_PAYMENT_ENFORCEMENT)) {
+        if (IsSporkActive(SPORK_8_FRANCNODE_PAYMENT_ENFORCEMENT)) {
             nMasternode_Age = GetAdjustedTime() - mn.sigTime;
             if ((nMasternode_Age) < nMasternode_Min_Age) {
                 if (fDebug) LogPrint("masternode","Skipping just activated Masternode. Age: %ld\n", nMasternode_Age);
@@ -796,7 +796,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                         return;
                     }
                 }
-                int64_t askAgain = GetTime() + FRENCHNODES_DSEG_SECONDS;
+                int64_t askAgain = GetTime() + FRANCNODES_DSEG_SECONDS;
                 mAskedUsForMasternodeList[pfrom->addr] = askAgain;
             }
         } //else, asking for a specific node which is ok
@@ -812,7 +812,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                 if (vin == CTxIn() || vin == mn.vin) {
                     CMasternodeBroadcast mnb = CMasternodeBroadcast(mn);
                     uint256 hash = mnb.GetHash();
-                    pfrom->PushInventory(CInv(MSG_FRENCHNODE_ANNOUNCE, hash));
+                    pfrom->PushInventory(CInv(MSG_FRANCNODE_ANNOUNCE, hash));
                     nInvCount++;
 
                     if (!mapSeenMasternodeBroadcast.count(hash)) mapSeenMasternodeBroadcast.insert(make_pair(hash, mnb));
@@ -826,7 +826,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         }
 
         if (vin == CTxIn()) {
-            pfrom->PushMessage("ssc", FRENCHNODE_SYNC_LIST, nInvCount);
+            pfrom->PushMessage("ssc", FRANCNODE_SYNC_LIST, nInvCount);
             LogPrint("masternode", "dseg - Sent %d Masternode entries to peer %i\n", nInvCount, pfrom->GetId());
         }
     }

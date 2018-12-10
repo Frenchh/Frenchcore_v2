@@ -17,7 +17,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/french/french
+url=https://github.com/franc/franc
 proc=2
 mem=2000
 lxc=true
@@ -31,7 +31,7 @@ commitFiles=true
 read -d '' usage <<- EOF
 Usage: $scriptName [-c|u|v|b|s|B|o|h|j|m|] signer version
 
-Run this script from the directory containing the french, gitian-builder, gitian.sigs, and french-detached-sigs.
+Run this script from the directory containing the franc, gitian-builder, gitian.sigs, and franc-detached-sigs.
 
 Arguments:
 signer          GPG signer to sign each build assert file
@@ -39,7 +39,7 @@ version		Version number, commit, or branch to build. If building a commit or bra
 
 Options:
 -c|--commit	Indicate that the version argument is for a commit or branch
--u|--url	Specify the URL of the repository. Default is https://github.com/french/french
+-u|--url	Specify the URL of the repository. Default is https://github.com/franc/franc
 -v|--verify 	Verify the gitian build
 -b|--build	Do a gitian build
 -s|--sign	Make signed binaries for Windows and Mac OSX
@@ -237,8 +237,8 @@ echo ${COMMIT}
 if [[ $setup = true ]]
 then
     sudo apt-get install ruby apache2 git apt-cacher-ng python-vm-builder qemu-kvm qemu-utils
-    git clone https://github.com/french/gitian.sigs.git
-    git clone https://github.com/french/french-detached-sigs.git
+    git clone https://github.com/franc/gitian.sigs.git
+    git clone https://github.com/franc/franc-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
     pushd ./gitian-builder
     if [[ -n "$USE_LXC" ]]
@@ -252,7 +252,7 @@ then
 fi
 
 # Set up build
-pushd ./french
+pushd ./franc
 git fetch
 git checkout ${COMMIT}
 popd
@@ -261,7 +261,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./french-binaries/${VERSION}
+	mkdir -p ./franc-binaries/${VERSION}
 
 	# Build Dependencies
 	echo ""
@@ -271,7 +271,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../french/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../franc/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -279,9 +279,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit french=${COMMIT} --url french=${url} ../french/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/french-*.tar.gz build/out/src/french-*.tar.gz ../french-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit franc=${COMMIT} --url franc=${url} ../franc/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/franc-*.tar.gz build/out/src/franc-*.tar.gz ../franc-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -289,10 +289,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit french=${COMMIT} --url french=${url} ../french/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/french-*-win-unsigned.tar.gz inputs/french-win-unsigned.tar.gz
-	    mv build/out/french-*.zip build/out/french-*.exe ../french-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit franc=${COMMIT} --url franc=${url} ../franc/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/franc-*-win-unsigned.tar.gz inputs/franc-win-unsigned.tar.gz
+	    mv build/out/franc-*.zip build/out/franc-*.exe ../franc-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -300,10 +300,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit french=${COMMIT} --url french=${url} ../french/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/french-*-osx-unsigned.tar.gz inputs/french-osx-unsigned.tar.gz
-	    mv build/out/french-*.tar.gz build/out/french-*.dmg ../french-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit franc=${COMMIT} --url franc=${url} ../franc/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/franc-*-osx-unsigned.tar.gz inputs/franc-osx-unsigned.tar.gz
+	    mv build/out/franc-*.tar.gz build/out/franc-*.dmg ../franc-binaries/${VERSION}
 	fi
 	# AArch64
 	if [[ $aarch64 = true ]]
@@ -311,9 +311,9 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} AArch64"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit french=${COMMIT} --url french=${url} ../french/contrib/gitian-descriptors/gitian-aarch64.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-aarch64.yml
-	    mv build/out/french-*.tar.gz build/out/src/french-*.tar.gz ../french-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit franc=${COMMIT} --url franc=${url} ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
+	    mv build/out/franc-*.tar.gz build/out/src/franc-*.tar.gz ../franc-binaries/${VERSION}
 	popd
 
         if [[ $commitFiles = true ]]
@@ -340,32 +340,32 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../french/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../franc/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../french/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../franc/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../french/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../franc/contrib/gitian-descriptors/gitian-osx.yml
 	# AArch64
 	echo ""
 	echo "Verifying v${VERSION} AArch64"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../french/contrib/gitian-descriptors/gitian-aarch64.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
 	popd
 fi
 
@@ -380,10 +380,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../french/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/french-*win64-setup.exe ../french-binaries/${VERSION}
-	    mv build/out/french-*win32-setup.exe ../french-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../franc/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/franc-*win64-setup.exe ../franc-binaries/${VERSION}
+	    mv build/out/franc-*win32-setup.exe ../franc-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -391,9 +391,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/french-osx-signed.dmg ../french-binaries/${VERSION}/french-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/franc-osx-signed.dmg ../franc-binaries/${VERSION}/franc-${VERSION}-osx.dmg
 	fi
 	popd
 

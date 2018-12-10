@@ -808,12 +808,12 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 	border:0;
 }
 
-/* About French Dialog */
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About French Contents */
+/* About Franc Dialog */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Franc Contents */
 	margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About French text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Franc text */
 	margin-right:10px;
 }
 
@@ -840,7 +840,7 @@ QLabel#labelOverviewHeaderLeft {
 
 QLabel#labelOverviewHeaderRight {
 	qproperty-alignment: 'AlignVCenter | AlignRight';
-	background-image: url(':/images/french_logo_horizontal');
+	background-image: url(':/images/franc_logo_horizontal');
 	background-repeat: no-repeat;
 }
 
@@ -1342,7 +1342,7 @@ QDialog#TransactionDescDialog QTextEdit { /* Contents of Receive Coin Dialog */
 	border:1px solid #d7d7d7;
 }
 
-/**************************** FRENCHNODE LIST *******************************************/
+/**************************** FRANCNODE LIST *******************************************/
 
 QWidget#MasternodeList {
 	background-color:#ffffff;

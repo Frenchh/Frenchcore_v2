@@ -1,7 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -111,7 +111,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
 
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
-    QString windowTitle = tr("French Core") + " - ";
+    QString windowTitle = tr("Franc Core") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
     enableWallet = !GetBoolArg("-disablewallet", false);
@@ -330,7 +330,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     receiveIcon.addPixmap(receiveIconActive,QIcon::Active,QIcon::Off);
 
     receiveCoinsAction = new QAction(receiveIcon, tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and french: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and franc: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
 #ifdef Q_OS_MAC
@@ -403,14 +403,14 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About French Core"), this);
-    aboutAction->setStatusTip(tr("Show information about French Core"));
+    aboutAction = new QAction(networkStyle->getAppIcon(), tr("&About Franc Core"), this);
+    aboutAction->setStatusTip(tr("Show information about Franc Core"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/qt-project.org/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for French"));
+    optionsAction->setStatusTip(tr("Modify configuration options for Franc"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(networkStyle->getAppIcon(), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -465,13 +465,13 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     multisigSignAction->setStatusTip(tr("Sign with a multisignature address"));
 
     openAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_FileIcon), tr("Open &URI..."), this);
-    openAction->setStatusTip(tr("Open a french: URI or payment request"));
+    openAction->setStatusTip(tr("Open a franc: URI or payment request"));
     openBlockExplorerAction = new QAction(QIcon(":/icons/explorer"), tr("&Blockchain explorer"), this);
     openBlockExplorerAction->setStatusTip(tr("Block explorer window"));
 
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the French Core help message to get a list with possible French command-line options"));
+    showHelpMessageAction->setStatusTip(tr("Show the Franc Core help message to get a list with possible Franc command-line options"));
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -690,7 +690,7 @@ void BitcoinGUI::createTrayIcon(const NetworkStyle* networkStyle)
 {
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
-    QString toolTip = tr("French Core client") + " " + networkStyle->getTitleAddText();
+    QString toolTip = tr("Franc Core client") + " " + networkStyle->getTitleAddText();
     trayIcon->setToolTip(toolTip);
     trayIcon->setIcon(networkStyle->getAppIcon());
     trayIcon->hide();
@@ -895,7 +895,7 @@ void BitcoinGUI::setNumConnections(int count)
     }
     QIcon connectionItem = QIcon(icon).pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelConnectionsIcon->setIcon(connectionItem);
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to French network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Franc network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count)
@@ -957,11 +957,11 @@ void BitcoinGUI::setNumBlocks(int count)
                 walletFrame->showOutOfSyncWarning(false);
 #endif // ENABLE_WALLET
 
-            nAttempt = masternodeSync.RequestedMasternodeAttempt < FRENCHNODE_SYNC_THRESHOLD ?
+            nAttempt = masternodeSync.RequestedMasternodeAttempt < FRANCNODE_SYNC_THRESHOLD ?
                            masternodeSync.RequestedMasternodeAttempt + 1 :
-                           FRENCHNODE_SYNC_THRESHOLD;
-            progress = nAttempt + (masternodeSync.RequestedMasternodeAssets - 1) * FRENCHNODE_SYNC_THRESHOLD;
-            progressBar->setMaximum(4 * FRENCHNODE_SYNC_THRESHOLD);
+                           FRANCNODE_SYNC_THRESHOLD;
+            progress = nAttempt + (masternodeSync.RequestedMasternodeAssets - 1) * FRANCNODE_SYNC_THRESHOLD;
+            progressBar->setMaximum(4 * FRANCNODE_SYNC_THRESHOLD);
             progressBar->setFormat(tr("Synchronizing additional data: %p%"));
             progressBar->setValue(progress);
         }
@@ -1025,7 +1025,7 @@ void BitcoinGUI::setNumBlocks(int count)
 
 void BitcoinGUI::message(const QString& title, const QString& message, unsigned int style, bool* ret)
 {
-    QString strTitle = tr("French Core"); // default title
+    QString strTitle = tr("Franc Core"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -1050,7 +1050,7 @@ void BitcoinGUI::message(const QString& title, const QString& message, unsigned 
             break;
         }
     }
-    // Append title to "French - "
+    // Append title to "Franc - "
     if (!msgType.isEmpty())
         strTitle += " - " + msgType;
 

@@ -1,17 +1,17 @@
-French Core integration/staging repository
+Franc Core integration/staging repository
 =================================================
-[![Build Status](https://travis-ci.org/french/french.svg?branch=master)](https://travis-ci.org/french/french) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![Build Status](https://travis-ci.org/franc/franc.svg?branch=master)](https://travis-ci.org/franc/franc) ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 
-French (FRC) is a sustainable cryptocurrency modeled after Satoshi Nakamoto’s vision for Bitcoin. It is a decentralized, peer-to-peer transactional currency designed to offer a solution to the problem posed by the exponential increase in energy consumed by Bitcoin and other proof-of-work currencies. Proof-of-work mining is environmentally unsustainable due to the electricity used by high-powered mining hardware. French utilizes the Green Protocol, an energy efficient proof-of-stake algorithm inspired by PIVX/DASH, can be mined on any computer, and will never require specialized mining equipment. The Green Protocol offers a simple solution to Bitcoin sustainability issues and provides a faster, more scalable blockchain that is better suited for daily transactional use.
+Franc (FRC) is a sustainable cryptocurrency modeled after Satoshi Nakamoto’s vision for Bitcoin. It is a decentralized, peer-to-peer transactional currency designed to offer a solution to the problem posed by the exponential increase in energy consumed by Bitcoin and other proof-of-work currencies. Proof-of-work mining is environmentally unsustainable due to the electricity used by high-powered mining hardware. Franc utilizes the Green Protocol, an energy efficient proof-of-stake algorithm inspired by PIVX/DASH, can be mined on any computer, and will never require specialized mining equipment. The Green Protocol offers a simple solution to Bitcoin sustainability issues and provides a faster, more scalable blockchain that is better suited for daily transactional use.
 
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftTX_.
 - Decentralized blockchain voting providing for consensus based advancement of the current Masternode
   technology used to secure the network and provide the above features, each Masternode is secured
   with a collateral of 2,500 FRC.
 
-More information at [french-blockchain.com](http://www.french-blockchain.com)
+More information at [franc-blockchain.com](http://www.franc-blockchain.com)
 
-Please reach out at awareness@french-blockchain.com
+Please reach out at awareness@franc-blockchain.com
 
 ### Coin Specs
 | Block Time                  | 60 Seconds      |

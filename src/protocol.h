@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2016-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -164,15 +164,15 @@ enum {
     MSG_TXLOCK_REQUEST,
     MSG_TXLOCK_VOTE,
     MSG_SPORK,
-    MSG_FRENCHNODE_WINNER,
-    MSG_FRENCHNODE_SCANNING_ERROR,
+    MSG_FRANCNODE_WINNER,
+    MSG_FRANCNODE_SCANNING_ERROR,
     MSG_BUDGET_VOTE,
     MSG_BUDGET_PROPOSAL,
     MSG_BUDGET_FINALIZED,
     MSG_BUDGET_FINALIZED_VOTE,
-    MSG_FRENCHNODE_QUORUM,
-    MSG_FRENCHNODE_ANNOUNCE,
-    MSG_FRENCHNODE_PING,
+    MSG_FRANCNODE_QUORUM,
+    MSG_FRANCNODE_ANNOUNCE,
+    MSG_FRANCNODE_PING,
     MSG_COMMUNITY_PROPOSAL,
     MSG_COMMUNITY_VOTE
 };

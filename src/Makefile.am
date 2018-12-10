@@ -77,15 +77,15 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += frenchd
+  bin_PROGRAMS += francd
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += french-cli french-tx
+  bin_PROGRAMS += franc-cli franc-tx
 endif
 
 .PHONY: FORCE
-# french core #
+# franc core #
 BITCOIN_CORE_H = \
   activemasternode.h \
   addrman.h \
@@ -186,7 +186,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between frenchd and french-qt
+# server: shared between francd and franc-qt
 libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
@@ -232,7 +232,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between frenchd and french-qt, but only linked
+# wallet: shared between francd and franc-qt, but only linked
 # when wallet enabled
 
 libbitcoin_wallet_a_CFLAGS = -fPIC
@@ -295,7 +295,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_skein.h \
   crypto/sph_types.h
 
-# common: shared between frenchd, and french-qt and non-server tools
+# common: shared between francd, and franc-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_common_a_SOURCES = \
   allocators.cpp \
@@ -351,7 +351,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-# cli: shared between french-cli and french-qt
+# cli: shared between franc-cli and franc-qt
 libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
@@ -361,7 +361,7 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-frenchd_LDADD = \
+francd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -372,26 +372,26 @@ frenchd_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_ZMQ
-frenchd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+francd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-frenchd_LDADD += libbitcoin_wallet.a
+francd_LDADD += libbitcoin_wallet.a
 endif
-frenchd_SOURCES = frenchd.cpp
+francd_SOURCES = francd.cpp
 #
 
 if TARGET_WINDOWS
-frenchd_SOURCES += frenchd-res.rc
+francd_SOURCES += francd-res.rc
 endif
 
-frenchd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-frenchd_CPPFLAGS = $(BITCOIN_INCLUDES)
-frenchd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+francd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+francd_CPPFLAGS = $(BITCOIN_INCLUDES)
+francd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 
-# french-cli binary #
-french_cli_LDADD = \
+# franc-cli binary #
+franc_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
@@ -400,14 +400,14 @@ french_cli_LDADD = \
   $(CRYPTO_LIBS) \
   $(EVENT_LIBS)
 
-french_cli_SOURCES = \
-  french-cli.cpp
+franc_cli_SOURCES = \
+  franc-cli.cpp
 
-french_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+franc_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 #
 
-# french-tx binary #
-french_tx_LDADD = \
+# franc-tx binary #
+franc_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -416,15 +416,15 @@ french_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-french_tx_SOURCES = french-tx.cpp
-french_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+franc_tx_SOURCES = franc-tx.cpp
+franc_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-french_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+franc_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-french_cli_SOURCES += french-cli-res.rc
+franc_cli_SOURCES += franc-cli-res.rc
 endif
-french_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+franc_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h

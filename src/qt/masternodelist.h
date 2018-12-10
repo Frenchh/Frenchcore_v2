@@ -1,11 +1,11 @@
 // Copyright (c) 2014-2016 The Dash Developers
 // Copyright (c) 2016-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRENCHNODELIST_H
-#define FRENCHNODELIST_H
+#ifndef FRANCNODELIST_H
+#define FRANCNODELIST_H
 
 #include "masternode.h"
 #include "platformstyle.h"
@@ -16,9 +16,9 @@
 #include <QTimer>
 #include <QWidget>
 
-#define MY_FRENCHNODELIST_UPDATE_SECONDS 60
-#define FRENCHNODELIST_UPDATE_SECONDS 15
-#define FRENCHNODELIST_FILTER_COOLDOWN_SECONDS 3
+#define MY_FRANCNODELIST_UPDATE_SECONDS 60
+#define FRANCNODELIST_UPDATE_SECONDS 15
+#define FRANCNODELIST_FILTER_COOLDOWN_SECONDS 3
 
 namespace Ui
 {
@@ -73,4 +73,4 @@ private Q_SLOTS:
     void on_tableWidgetMyMasternodes_itemSelectionChanged();
     void on_UpdateButton_clicked();
 };
-#endif // FRENCHNODELIST_H
+#endif // FRANCNODELIST_H

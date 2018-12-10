@@ -1,11 +1,11 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FRENCHNODE_H
-#define FRENCHNODE_H
+#ifndef FRANCNODE_H
+#define FRANCNODE_H
 
 #include "base58.h"
 #include "key.h"
@@ -15,15 +15,15 @@
 #include "timedata.h"
 #include "util.h"
 
-#define FRENCHNODE_MIN_CONFIRMATIONS 15
-#define FRENCHNODE_MIN_MNP_SECONDS (10 * 60)
-#define FRENCHNODE_MIN_MNB_SECONDS (5 * 60)
-#define FRENCHNODE_PING_SECONDS (5 * 60)
-#define FRENCHNODE_EXPIRATION_SECONDS (120 * 60)
-#define FRENCHNODE_REMOVAL_SECONDS (130 * 60)
-#define FRENCHNODE_CHECK_SECONDS 5
+#define FRANCNODE_MIN_CONFIRMATIONS 15
+#define FRANCNODE_MIN_MNP_SECONDS (10 * 60)
+#define FRANCNODE_MIN_MNB_SECONDS (5 * 60)
+#define FRANCNODE_PING_SECONDS (5 * 60)
+#define FRANCNODE_EXPIRATION_SECONDS (120 * 60)
+#define FRANCNODE_REMOVAL_SECONDS (130 * 60)
+#define FRANCNODE_CHECK_SECONDS 5
 
-#define FRENCHNODE_COLLATERAL 2500
+#define FRANCNODE_COLLATERAL 2500
 
 using namespace std;
 
@@ -116,15 +116,15 @@ private:
 
 public:
     enum state {
-        FRENCHNODE_PRE_ENABLED,
-        FRENCHNODE_ENABLED,
-        FRENCHNODE_EXPIRED,
-        FRENCHNODE_OUTPOINT_SPENT,
-        FRENCHNODE_REMOVE,
-        FRENCHNODE_WATCHDOG_EXPIRED,
-        FRENCHNODE_POSE_BAN,
-        FRENCHNODE_VIN_SPENT,
-        FRENCHNODE_POS_ERROR
+        FRANCNODE_PRE_ENABLED,
+        FRANCNODE_ENABLED,
+        FRANCNODE_EXPIRED,
+        FRANCNODE_OUTPOINT_SPENT,
+        FRANCNODE_REMOVE,
+        FRANCNODE_WATCHDOG_EXPIRED,
+        FRANCNODE_POSE_BAN,
+        FRANCNODE_VIN_SPENT,
+        FRANCNODE_POS_ERROR
     };
 
     CTxIn vin;
@@ -253,7 +253,7 @@ public:
 
     bool IsEnabled()
     {
-        return activeState == FRENCHNODE_ENABLED;
+        return activeState == FRANCNODE_ENABLED;
     }
 
     int GetMasternodeInputAge()
@@ -274,11 +274,11 @@ public:
     {
         std::string strStatus = "ACTIVE";
 
-        if (activeState == CMasternode::FRENCHNODE_ENABLED) strStatus = "ENABLED";
-        if (activeState == CMasternode::FRENCHNODE_EXPIRED) strStatus = "EXPIRED";
-        if (activeState == CMasternode::FRENCHNODE_VIN_SPENT) strStatus = "VIN_SPENT";
-        if (activeState == CMasternode::FRENCHNODE_REMOVE) strStatus = "REMOVE";
-        if (activeState == CMasternode::FRENCHNODE_POS_ERROR) strStatus = "POS_ERROR";
+        if (activeState == CMasternode::FRANCNODE_ENABLED) strStatus = "ENABLED";
+        if (activeState == CMasternode::FRANCNODE_EXPIRED) strStatus = "EXPIRED";
+        if (activeState == CMasternode::FRANCNODE_VIN_SPENT) strStatus = "VIN_SPENT";
+        if (activeState == CMasternode::FRANCNODE_REMOVE) strStatus = "REMOVE";
+        if (activeState == CMasternode::FRANCNODE_POS_ERROR) strStatus = "POS_ERROR";
 
         return strStatus;
     }

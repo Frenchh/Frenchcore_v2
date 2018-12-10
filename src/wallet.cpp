@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The French developers
+// Copyright (c) 2017-2018 The Franc developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -960,7 +960,7 @@ CAmount CWalletTx::GetUnlockedCredit() const
         const CTxOut& txout = vout[i];
 
         if (pwallet->IsSpent(hashTx, i) || pwallet->IsLockedCoin(hashTx, i)) continue;
-        if (fMasterNode && vout[i].nValue == FRENCHNODE_COLLATERAL * COIN) continue; // do not count MN-like outputs
+        if (fMasterNode && vout[i].nValue == FRANCNODE_COLLATERAL * COIN) continue; // do not count MN-like outputs
 
         nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
         if (!MoneyRange(nCredit))
@@ -994,7 +994,7 @@ CAmount CWalletTx::GetLockedCredit() const
         }
 
         // Add masternode collaterals which are handled like locked coins
-        else if (fMasterNode && vout[i].nValue == FRENCHNODE_COLLATERAL * COIN) {
+        else if (fMasterNode && vout[i].nValue == FRANCNODE_COLLATERAL * COIN) {
             nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
         }
 
@@ -1069,7 +1069,7 @@ CAmount CWalletTx::GetLockedWatchOnlyCredit() const
         }
 
         // Add masternode collaterals which are handled likc locked coins
-        else if (fMasterNode && vout[i].nValue == FRENCHNODE_COLLATERAL * COIN) {
+        else if (fMasterNode && vout[i].nValue == FRANCNODE_COLLATERAL * COIN) {
             nCredit += pwallet->GetCredit(txout, ISMINE_WATCH_ONLY);
         }
 
@@ -1463,9 +1463,9 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
                 bool found = false;
                 if (nCoinType == ONLY_NOT10000IFMN) {
-                    found = !(fMasterNode && pcoin->vout[i].nValue == FRENCHNODE_COLLATERAL * COIN);
+                    found = !(fMasterNode && pcoin->vout[i].nValue == FRANCNODE_COLLATERAL * COIN);
                 } if (nCoinType == ONLY_10000) {
-                    found = pcoin->vout[i].nValue == FRENCHNODE_COLLATERAL * COIN;
+                    found = pcoin->vout[i].nValue == FRANCNODE_COLLATERAL * COIN;
                 } else {
                     found = true;
                 }

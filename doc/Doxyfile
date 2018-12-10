@@ -28,7 +28,7 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = French
+PROJECT_NAME           = Franc
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number.
 # This could be handy for archiving the generated documentation or
@@ -70,7 +70,7 @@ CREATE_SUBDIRS         = NO
 # information to generate all constant output in the proper language.
 # The default language is English, other supported languages are:
 # Afrikaans, Arabic, Brazilian, Catalan, Chinese, Chinese-Traditional,
-# Croatian, Czech, Danish, Dutch, Esperanto, Farsi, Finnish, French, German,
+# Croatian, Czech, Danish, Dutch, Esperanto, Farsi, Finnish, Franc, German,
 # Greek, Hungarian, Italian, Japanese, Japanese-en (Japanese with English
 # messages), Korean, Korean-en, Lithuanian, Norwegian, Macedonian, Persian,
 # Polish, Portuguese, Romanian, Russian, Serbian, Serbian-Cyrillic, Slovak,

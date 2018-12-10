@@ -16,7 +16,7 @@ OpenURIDialog::OpenURIDialog(QWidget* parent) : QDialog(parent, Qt::WindowSystem
                                                 ui(new Ui::OpenURIDialog)
 {
     ui->setupUi(this);
-    ui->uriEdit->setPlaceholderText("french:");
+    ui->uriEdit->setPlaceholderText("franc:");
 }
 
 OpenURIDialog::~OpenURIDialog()
@@ -46,5 +46,5 @@ void OpenURIDialog::on_selectFileButton_clicked()
     if (filename.isEmpty())
         return;
     QUrl fileUri = QUrl::fromLocalFile(filename);
-    ui->uriEdit->setText("french:?r=" + QUrl::toPercentEncoding(fileUri.toString()));
+    ui->uriEdit->setText("franc:?r=" + QUrl::toPercentEncoding(fileUri.toString()));
 }

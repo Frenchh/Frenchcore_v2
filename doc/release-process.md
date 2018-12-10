@@ -3,7 +3,7 @@ Release Process
 
 Before every release candidate:
 
-* Update translations see [translation_process.md](https://github.com/french/french/blob/master/doc/translation_process.md#synchronising-translations).
+* Update translations see [translation_process.md](https://github.com/franc/franc/blob/master/doc/translation_process.md#synchronising-translations).
 
 Before every minor and major release:
 
@@ -24,12 +24,12 @@ If you're using the automated script (found in [contrib/gitian-build.sh](/contri
 Check out the source code in the following directory hierarchy.
 
     cd /path/to/your/toplevel/build
-    git clone https://github.com/french/gitian.sigs.git
-    git clone https://github.com/french/french-detached-sigs.git
+    git clone https://github.com/franc/gitian.sigs.git
+    git clone https://github.com/franc/franc-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
-    git clone https://github.com/french/french.git
+    git clone https://github.com/franc/franc.git
 
-### French maintainers/release engineers, suggestion for writing release notes
+### Franc maintainers/release engineers, suggestion for writing release notes
 
 Write release notes. git shortlog helps a lot, for example:
 
@@ -50,7 +50,7 @@ If you're using the automated script (found in [contrib/gitian-build.sh](/contri
 
 Setup Gitian descriptors:
 
-    pushd ./french
+    pushd ./franc
     export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
     export VERSION=(new version, e.g. 0.8.0)
     git fetch
@@ -84,7 +84,7 @@ Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, a
 By default, Gitian will fetch source files as needed. To cache them ahead of time:
 
     pushd ./gitian-builder
-    make -C ../french/depends download SOURCES_PATH=`pwd`/cache/common
+    make -C ../franc/depends download SOURCES_PATH=`pwd`/cache/common
     popd
 
 Only missing files will be fetched, so this is safe to re-run for each build.
@@ -92,55 +92,55 @@ Only missing files will be fetched, so this is safe to re-run for each build.
 NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from local URLs. For example:
 
     pushd ./gitian-builder
-    ./bin/gbuild --url french=/path/to/french,signature=/path/to/sigs {rest of arguments}
+    ./bin/gbuild --url franc=/path/to/franc,signature=/path/to/sigs {rest of arguments}
     popd
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign French Core for Linux, Windows, and OS X:
+### Build and sign Franc Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit french=v${VERSION} ../french/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-linux.yml
-    mv build/out/french-*.tar.gz build/out/src/french-*.tar.gz ../
+    ./bin/gbuild --memory 3000 --commit franc=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-linux.yml
+    mv build/out/franc-*.tar.gz build/out/src/franc-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit french=v${VERSION} ../french/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-win.yml
-    mv build/out/french-*-win-unsigned.tar.gz inputs/french-win-unsigned.tar.gz
-    mv build/out/french-*.zip build/out/french-*.exe ../
+    ./bin/gbuild --memory 3000 --commit franc=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-win.yml
+    mv build/out/franc-*-win-unsigned.tar.gz inputs/franc-win-unsigned.tar.gz
+    mv build/out/franc-*.zip build/out/franc-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit french=v${VERSION} ../french/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-osx.yml
-    mv build/out/french-*-osx-unsigned.tar.gz inputs/french-osx-unsigned.tar.gz
-    mv build/out/french-*.tar.gz build/out/french-*.dmg ../
+    ./bin/gbuild --memory 3000 --commit franc=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-osx.yml
+    mv build/out/franc-*-osx-unsigned.tar.gz inputs/franc-osx-unsigned.tar.gz
+    mv build/out/franc-*.tar.gz build/out/franc-*.dmg ../
 
-    ./bin/gbuild --memory 3000 --commit french=v${VERSION} ../french/contrib/gitian-descriptors/gitian-aarch64.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-aarch64.yml
-    mv build/out/french-*.tar.gz build/out/src/french-*.tar.gz ../
+    ./bin/gbuild --memory 3000 --commit franc=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
+    mv build/out/franc-*.tar.gz build/out/src/franc-*.tar.gz ../
     popd
 
 Build output expected:
 
-  1. source tarball (`french-${VERSION}.tar.gz`)
-  2. linux 32-bit and 64-bit dist tarballs (`french-${VERSION}-linux[32|64].tar.gz`)
-  3. windows 32-bit and 64-bit unsigned installers and dist zips (`french-${VERSION}-win[32|64]-setup-unsigned.exe`, `french-${VERSION}-win[32|64].zip`)
-  4. OS X unsigned installer and dist tarball (`french-${VERSION}-osx-unsigned.dmg`, `french-${VERSION}-osx64.tar.gz`)
+  1. source tarball (`franc-${VERSION}.tar.gz`)
+  2. linux 32-bit and 64-bit dist tarballs (`franc-${VERSION}-linux[32|64].tar.gz`)
+  3. windows 32-bit and 64-bit unsigned installers and dist zips (`franc-${VERSION}-win[32|64]-setup-unsigned.exe`, `franc-${VERSION}-win[32|64].zip`)
+  4. OS X unsigned installer and dist tarball (`franc-${VERSION}-osx-unsigned.dmg`, `franc-${VERSION}-osx64.tar.gz`)
   5. Gitian signatures (in `gitian.sigs/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/`)
 
 ### Verify other gitian builders signatures to your own. (Optional)
 
 Add other gitian builders keys to your gpg keyring, and/or refresh keys.
 
-    gpg --import french/contrib/gitian-keys/*.pgp
+    gpg --import franc/contrib/gitian-keys/*.pgp
     gpg --refresh-keys
 
 Verify the signatures
 
     pushd ./gitian-builder
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../french/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../french/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../french/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../french/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../franc/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../franc/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../franc/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../franc/contrib/gitian-descriptors/gitian-aarch64.yml
     popd
 
 ### Next steps:
@@ -162,22 +162,22 @@ Codesigner only: Create Windows/OS X detached signatures:
 
 Codesigner only: Sign the osx binary:
 
-    transfer french-osx-unsigned.tar.gz to osx for signing
-    tar xf french-osx-unsigned.tar.gz
+    transfer franc-osx-unsigned.tar.gz to osx for signing
+    tar xf franc-osx-unsigned.tar.gz
     ./detached-sig-create.sh -s "Key ID"
     Enter the keychain password and authorize the signature
     Move signature-osx.tar.gz back to the gitian host
 
 Codesigner only: Sign the windows binaries:
 
-    tar xf french-win-unsigned.tar.gz
+    tar xf franc-win-unsigned.tar.gz
     ./detached-sig-create.sh -key /path/to/codesign.key
     Enter the passphrase for the key when prompted
     signature-win.tar.gz will be created
 
 Codesigner only: Commit the detached codesign payloads:
 
-    cd ~/french-detached-sigs
+    cd ~/franc-detached-sigs
     checkout the appropriate branch for this release series
     rm -rf *
     tar xf signature-osx.tar.gz
@@ -190,25 +190,25 @@ Codesigner only: Commit the detached codesign payloads:
 Non-codesigners: wait for Windows/OS X detached signatures:
 
 - Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
-- Detached signatures will then be committed to the [french-detached-sigs](https://github.com/french/french-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
+- Detached signatures will then be committed to the [franc-detached-sigs](https://github.com/franc/franc-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
 Create (and optionally verify) the signed OS X binary:
 
     pushd ./gitian-builder
-    ./bin/gbuild -i --commit signature=v${VERSION} ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../french/contrib/gitian-descriptors/gitian-osx-signer.yml
-    mv build/out/french-osx-signed.dmg ../french-${VERSION}-osx.dmg
+    ./bin/gbuild -i --commit signature=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../franc/contrib/gitian-descriptors/gitian-osx-signer.yml
+    mv build/out/franc-osx-signed.dmg ../franc-${VERSION}-osx.dmg
     popd
 
 Create (and optionally verify) the signed Windows binaries:
 
     pushd ./gitian-builder
-    ./bin/gbuild -i --commit signature=v${VERSION} ../french/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../french/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../french/contrib/gitian-descriptors/gitian-win-signer.yml
-    mv build/out/french-*win64-setup.exe ../french-${VERSION}-win64-setup.exe
-    mv build/out/french-*win32-setup.exe ../french-${VERSION}-win32-setup.exe
+    ./bin/gbuild -i --commit signature=v${VERSION} ../franc/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../franc/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../franc/contrib/gitian-descriptors/gitian-win-signer.yml
+    mv build/out/franc-*win64-setup.exe ../franc-${VERSION}-win64-setup.exe
+    mv build/out/franc-*win32-setup.exe ../franc-${VERSION}-win32-setup.exe
     popd
 
 Commit your signature for the signed OS X/Windows binaries:
@@ -230,23 +230,23 @@ sha256sum * > SHA256SUMS
 
 The list of files should be:
 ```
-french-${VERSION}-aarch64-linux-gnu.tar.gz
-french-${VERSION}-arm-linux-gnueabihf.tar.gz
-french-${VERSION}-i686-pc-linux-gnu.tar.gz
-french-${VERSION}-x86_64-linux-gnu.tar.gz
-french-${VERSION}-osx64.tar.gz
-french-${VERSION}-osx.dmg
-french-${VERSION}.tar.gz
-french-${VERSION}-win32-setup.exe
-french-${VERSION}-win32.zip
-french-${VERSION}-win64-setup.exe
-french-${VERSION}-win64.zip
+franc-${VERSION}-aarch64-linux-gnu.tar.gz
+franc-${VERSION}-arm-linux-gnueabihf.tar.gz
+franc-${VERSION}-i686-pc-linux-gnu.tar.gz
+franc-${VERSION}-x86_64-linux-gnu.tar.gz
+franc-${VERSION}-osx64.tar.gz
+franc-${VERSION}-osx.dmg
+franc-${VERSION}.tar.gz
+franc-${VERSION}-win32-setup.exe
+franc-${VERSION}-win32.zip
+franc-${VERSION}-win64-setup.exe
+franc-${VERSION}-win64.zip
 ```
 The `*-debug*` files generated by the gitian build contain debug symbols
 for troubleshooting by developers. It is assumed that anyone that is interested
 in debugging can run gitian to generate the files for themselves. To avoid
 end-user confusion about which file to pick, as well as save storage
-space *do not upload these to the french-blockchain.com server*.
+space *do not upload these to the franc-blockchain.com server*.
 
 - GPG-sign it, delete the unsigned file:
 ```
@@ -262,10 +262,10 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
   - bitcointalk announcement thread
 
-  - Optionally twitter, reddit /r/French, ... but this will usually sort out itself
+  - Optionally twitter, reddit /r/Franc, ... but this will usually sort out itself
 
   - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
 
-  - Create a [new GitHub release](https://github.com/french/french/releases/new) with a link to the archived release notes.
+  - Create a [new GitHub release](https://github.com/franc/franc/releases/new) with a link to the archived release notes.
 
   - Celebrate

@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between french-cli and frenchd)
- * of a given instance of the French system.
+ * CBaseChainParams defines the base parameters (shared between franc-cli and francd)
+ * of a given instance of the Franc system.
  */
 class CBaseChainParams
 {

@@ -96,7 +96,7 @@ public:
 };
 
 /**
- * French RPC command dispatcher.
+ * Franc RPC command dispatcher.
  */
 class CRPCTable
 {

@@ -242,10 +242,10 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop French server.");
+            "\nStop Franc server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "French server stopping";
+    return "Franc server stopping";
 }
 
 
@@ -327,39 +327,39 @@ static const CRPCCommand vRPCCommands[] =
         {"hidden", "reconsiderblock", &reconsiderblock, true, true, false},
         {"hidden", "setmocktime", &setmocktime, true, false, false},
 
-        /* French features */
-        {"french", "masternode", &masternode, true, true, false},
-        {"french", "listmasternodes", &listmasternodes, true, true, false},
-        {"french", "getmasternodecount", &getmasternodecount, true, true, false},
-        {"french", "masternodeconnect", &masternodeconnect, true, true, false},
-        {"french", "masternodecurrent", &masternodecurrent, true, true, false},
-        {"french", "masternodedebug", &masternodedebug, true, true, false},
-        {"french", "startmasternode", &startmasternode, true, true, false},
-        {"french", "createmasternodekey", &createmasternodekey, true, true, false},
-        {"french", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
-        {"french", "listmasternodeconf", &listmasternodeconf, true, true, false},
-        {"french", "getmasternodestatus", &getmasternodestatus, true, true, false},
-        {"french", "getmasternodewinners", &getmasternodewinners, true, true, false},
-        {"french", "getmasternodescores", &getmasternodescores, true, true, false},
-        {"french", "mnbudget", &mnbudget, true, true, false},
-        {"french", "preparebudget", &preparebudget, true, true, false},
-        {"french", "submitbudget", &submitbudget, true, true, false},
-        {"french", "mnbudgetvote", &mnbudgetvote, true, true, false},
-        {"french", "getbudgetvotes", &getbudgetvotes, true, true, false},
-        {"french", "getnextsuperblock", &getnextsuperblock, true, true, false},
-        {"french", "getbudgetprojection", &getbudgetprojection, true, true, false},
-        {"french", "getbudgetinfo", &getbudgetinfo, true, true, false},
-        {"french", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
-        {"french", "mnfinalbudget", &mnfinalbudget, true, true, false},
-        {"french", "checkbudgets", &checkbudgets, true, true, false},
-        {"french", "mnsync", &mnsync, true, true, false},
-        {"french", "spork", &spork, true, true, false},
-        {"french", "preparecommunityproposal", &preparecommunityproposal, true, true, false},
-        {"french", "submitcommunityproposal", &submitcommunityproposal, true, true, false},
-        {"french", "getcommunityinfo", &getcommunityinfo, true, true, false},
-        {"french", "checkcommunityproposals", &checkcommunityproposals, true, true, false},
-        {"french", "getcommunityproposalvotes", &getcommunityproposalvotes, true, true, false},
-        {"french", "mncommunityvote", &mncommunityvote, true, true, false},
+        /* Franc features */
+        {"franc", "masternode", &masternode, true, true, false},
+        {"franc", "listmasternodes", &listmasternodes, true, true, false},
+        {"franc", "getmasternodecount", &getmasternodecount, true, true, false},
+        {"franc", "masternodeconnect", &masternodeconnect, true, true, false},
+        {"franc", "masternodecurrent", &masternodecurrent, true, true, false},
+        {"franc", "masternodedebug", &masternodedebug, true, true, false},
+        {"franc", "startmasternode", &startmasternode, true, true, false},
+        {"franc", "createmasternodekey", &createmasternodekey, true, true, false},
+        {"franc", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
+        {"franc", "listmasternodeconf", &listmasternodeconf, true, true, false},
+        {"franc", "getmasternodestatus", &getmasternodestatus, true, true, false},
+        {"franc", "getmasternodewinners", &getmasternodewinners, true, true, false},
+        {"franc", "getmasternodescores", &getmasternodescores, true, true, false},
+        {"franc", "mnbudget", &mnbudget, true, true, false},
+        {"franc", "preparebudget", &preparebudget, true, true, false},
+        {"franc", "submitbudget", &submitbudget, true, true, false},
+        {"franc", "mnbudgetvote", &mnbudgetvote, true, true, false},
+        {"franc", "getbudgetvotes", &getbudgetvotes, true, true, false},
+        {"franc", "getnextsuperblock", &getnextsuperblock, true, true, false},
+        {"franc", "getbudgetprojection", &getbudgetprojection, true, true, false},
+        {"franc", "getbudgetinfo", &getbudgetinfo, true, true, false},
+        {"franc", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
+        {"franc", "mnfinalbudget", &mnfinalbudget, true, true, false},
+        {"franc", "checkbudgets", &checkbudgets, true, true, false},
+        {"franc", "mnsync", &mnsync, true, true, false},
+        {"franc", "spork", &spork, true, true, false},
+        {"franc", "preparecommunityproposal", &preparecommunityproposal, true, true, false},
+        {"franc", "submitcommunityproposal", &submitcommunityproposal, true, true, false},
+        {"franc", "getcommunityinfo", &getcommunityinfo, true, true, false},
+        {"franc", "checkcommunityproposals", &checkcommunityproposals, true, true, false},
+        {"franc", "getcommunityproposalvotes", &getcommunityproposalvotes, true, true, false},
+        {"franc", "mncommunityvote", &mncommunityvote, true, true, false},
 
 #ifdef ENABLE_WALLET
 
@@ -1077,7 +1077,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(string methodname, string args)
 {
-    return "> french-cli " + methodname + " " + args + "\n";
+    return "> franc-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args)

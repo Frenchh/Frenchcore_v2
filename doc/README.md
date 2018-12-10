@@ -1,36 +1,36 @@
-French Core
+Franc Core
 =====================
 
 Setup
 ---------------------
-[French Core](http://french-blockchain.com) is the original French client and it builds the backbone of the network. However, it downloads and stores the entire history of French transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[Franc Core](http://franc-blockchain.com) is the original Franc client and it builds the backbone of the network. However, it downloads and stores the entire history of Franc transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
-The following are some helpful notes on how to run French on your native platform.
+The following are some helpful notes on how to run Franc on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- bin/32/french-qt (GUI, 32-bit) or bin/32/frenchd (headless, 32-bit)
-- bin/64/french-qt (GUI, 64-bit) or bin/64/frenchd (headless, 64-bit)
+- bin/32/franc-qt (GUI, 32-bit) or bin/32/francd (headless, 32-bit)
+- bin/64/franc-qt (GUI, 64-bit) or bin/64/francd (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run french-qt.exe.
+Unpack the files into a directory, and then run franc-qt.exe.
 
 ### OSX
 
-Drag French-Qt to your applications folder, and then run French-Qt.
+Drag Franc-Qt to your applications folder, and then run Franc-Qt.
 
 ### Need Help?
 
-* Join our Discord server [Discord Server](https://discord.french-blockchain.com)
+* Join our Discord server [Discord Server](https://discord.franc-blockchain.com)
 
 Building
 ---------------------
-The following are developer notes on how to build French on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Franc on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OSX Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -38,7 +38,7 @@ The following are developer notes on how to build French on your native platform
 
 Development
 ---------------------
-The French repo's [root README](https://github.com/french/french/blob/master/README.md) contains relevant information on the development process and automated testing.
+The Franc repo's [root README](https://github.com/franc/franc/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
